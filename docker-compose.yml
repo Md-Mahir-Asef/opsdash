@@ -1,0 +1,67 @@
+services:
+    client:
+        build:
+            context: ./client
+        container_name: opsdash-client-dev
+        env_file:
+            - ./client/.env
+            - .env
+        environment:
+            # use polling so host -> container FS changes are detected (Windows / WSL)
+            - CHOKIDAR_USEPOLLING=true
+            - CHOKIDAR_INTERVAL=100
+        ports:
+            - "5173:5173"
+        volumes:
+            - ./client:/app:cached
+            # - /app/node_modules # It is causing problem with prisma generation on new schema
+        depends_on:
+            - api
+        tty: true
+        init: true
+        command: ["npm", "run", "dev", "--", "--host", "0.0.0.0"]
+    api:
+        build:
+            context: ./server
+            target: dev
+        container_name: opsdash-api-dev
+        env_file:
+            - ./server/.env
+            - .env
+        environment:
+            # help some watch libs that read this (not strictly required for nodemon but harmless)
+            - CHOKIDAR_USEPOLLING=true
+            - CHOKIDAR_INTERVAL=100
+        ports:
+            - "${SERVER_PORT}:${SERVER_PORT}"
+            - "51212:51212" # For Prisma Studio
+        volumes:
+            - ./server:/app:cached
+            - /app/node_modules
+        # depends_on:
+        #     db:
+        #         condition: service_healthy
+        tty: true
+        init: true
+        # command: >
+            # sh -c "sleep 10 && npx prisma db push && npx ts-node prisma/seed.ts && sleep 10 && npm run dev"
+        command: >
+            sh -c "npm run dev"
+
+    # db:
+    #     image: postgres:15
+    #     container_name: opsdash-db-dev
+    #     restart: always
+    #     env_file:
+    #         - ./server/.env
+    #     ports:
+    #         - "15432:5432"
+    #     volumes:
+    #         - db_data:/var/lib/postgresql/data
+    #     healthcheck:
+    #         test: ["CMD-SHELL", "pg_isready -d opsdash_db -U opsdash_dev"]
+    #         interval: 5s
+    #         retries: 5
+
+# volumes:
+#     db_data:

@@ -1,7 +1,7 @@
 ---
 # OpsDash Product Requirement Document (PRD)
 
-**Client:** Mahir
+**Client:** Md. Mahir Asef
 **Project Name:** OpsDash
 **Prepared by:** Client (Mahir)
 **Date:** 19 Feb 2026
