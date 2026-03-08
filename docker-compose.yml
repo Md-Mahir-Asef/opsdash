@@ -15,8 +15,6 @@ services:
         volumes:
             - ./client:/app:cached
             # - /app/node_modules # It is causing problem with prisma generation on new schema
-        depends_on:
-            - api
         tty: true
         init: true
         command: ["npm", "run", "dev", "--", "--host", "0.0.0.0"]
@@ -41,12 +39,14 @@ services:
         # depends_on:
         #     db:
         #         condition: service_healthy
+        depends_on:
+            - client
         tty: true
         init: true
         # command: >
-            # sh -c "sleep 10 && npx prisma db push && npx ts-node prisma/seed.ts && sleep 10 && npm run dev"
+        # sh -c "sleep 10 && npx prisma db push && npx ts-node prisma/seed.ts && sleep 10 && npm run dev"
         command: >
-            sh -c "npm run dev"
+            sh -c "sleep 10 && npm run dev"
 
     # db:
     #     image: postgres:15

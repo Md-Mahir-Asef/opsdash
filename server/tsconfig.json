@@ -1,0 +1,49 @@
+{
+    "compilerOptions": {
+        /* Output */
+        "target": "es2020" /* Modern JS output */,
+        "module": "commonjs" /* For Node.js ESM projects */,
+        // "moduleResolution": "commonjs" /* Match Node.js ESM resolution */,
+        "outDir": "./dist" /* Output folder */,
+        "rootDir": "./src" /* Keep structure clean */,
+        "types": ["node"],
+
+        /* Type Safety */
+        "strict": true /* Enable all strict checks */,
+        "noImplicitAny": true /* Forbid `any` */,
+        "strictNullChecks": true /* Handle null/undefined safely */,
+        "strictFunctionTypes": true,
+        "strictBindCallApply": true,
+        "noUncheckedIndexedAccess": true /* Catch undefined when indexing */,
+        "noImplicitOverride": true /* Force explicit `override` */,
+        "noPropertyAccessFromIndexSignature": true,
+
+        /* Code Quality */
+        "forceConsistentCasingInFileNames": true /* Case-sensitive paths */,
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitReturns": true /* Every branch must return */,
+
+        /* Project Setup */
+        "esModuleInterop": true /* Allow default imports from CJS */,
+        "allowSyntheticDefaultImports": true,
+        "resolveJsonModule": true /* Import .json files */,
+        "isolatedModules": true /* Required for ESM/bundlers */,
+        "skipLibCheck": true /* Faster builds, safe in prod */,
+
+        /* Source Maps (optional in prod, useful in dev) */
+        "sourceMap": false /* Disable for production builds */,
+        "inlineSources": false,
+
+        /* Incremental Builds */
+        "incremental": true /* Faster rebuilds */,
+        "tsBuildInfoFile": "./.tsbuildinfo" /* Store incremental build info */
+    },
+    "include": [
+        "src",
+        "tests/**/*",
+        "**/__tests__/**/*",
+        "src/middlewares/multer.middleware.ts",
+        "src/types/express/index.d.ts"
+    ],
+    "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.spec.ts"]
+}

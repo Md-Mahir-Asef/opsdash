@@ -1,6 +1,10 @@
 # Root
 **/node_modules
+.env
+**/logs
 
 # Client
+client/.env
 
 # Server
+server/.env
