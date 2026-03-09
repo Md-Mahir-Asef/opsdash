@@ -3,10 +3,6 @@ import { getHealth, ping } from "../controllers/health.controller";
 
 const routes = Router();
 
-routes.get("/", (req, res) => {
-    res.json({ message: "OpsDash API v1.0.0" });
-});
-
 /**
  * @swagger
  * /api/v1/health:

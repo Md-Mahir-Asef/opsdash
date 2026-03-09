@@ -1,8 +1,11 @@
+import { Routes, Route } from "react-router-dom";
+import Health from "./pages/Health";
+
 function App() {
     return (
-        <>
-            <h1>Hello World!</h1>
-        </>
+        <Routes>
+            <Route path="/health" element={<Health />} />
+        </Routes>
     );
 }
 

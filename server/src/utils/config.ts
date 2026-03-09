@@ -1,5 +1,5 @@
 import { config as dotenvConfig } from "dotenv";
-dotenvConfig({ override: false });
+dotenvConfig({ override: false, quiet: true });
 
 export const config = {
     SERVER_PORT: Number(process.env["SERVER_PORT"]) || 6145,
