@@ -21,9 +21,6 @@ export const Footer: React.FC = () => {
                         </p>
                         <div className="flex space-x-4">
                             <Button size="sm">Get Started Free</Button>
-                            <Button variant="secondary" size="sm">
-                                Schedule Demo
-                            </Button>
                         </div>
                     </div>
 
@@ -38,14 +35,6 @@ export const Footer: React.FC = () => {
                                     className="text-dark-600 hover:text-primary-500 transition-colors"
                                 >
                                     Features
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                    href="#demo"
-                                    className="text-dark-600 hover:text-primary-500 transition-colors"
-                                >
-                                    Demo
                                 </a>
                             </li>
                             <li>
@@ -116,11 +105,11 @@ export const Footer: React.FC = () => {
                         <div className="flex items-center space-x-4 mt-4 md:mt-0">
                             <div className="flex items-center space-x-2 text-dark-600 text-sm">
                                 <Mail className="h-4 w-4" />
-                                <span>support@opsdash.com</span>
+                                <span>mdmahirasef.dev@gmail.com</span>
                             </div>
                             <div className="flex items-center space-x-2 text-dark-600 text-sm">
                                 <Phone className="h-4 w-4" />
-                                <span>+1 (555) 123-4567</span>
+                                <span>+8801832055053</span>
                             </div>
                         </div>
                     </div>

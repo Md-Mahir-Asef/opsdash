@@ -176,13 +176,6 @@ export const TechTrust: React.FC = () => {
             </h4>
             <div className="space-y-4">
               <div className="flex items-start space-x-3">
-                <Lock className="h-5 w-5 text-primary-600 mt-1 flex-shrink-0" />
-                <div>
-                  <h5 className="font-semibold text-dark-900">End-to-End Encryption</h5>
-                  <p className="text-dark-600 text-sm">All data encrypted in transit and at rest</p>
-                </div>
-              </div>
-              <div className="flex items-start space-x-3">
                 <Shield className="h-5 w-5 text-primary-600 mt-1 flex-shrink-0" />
                 <div>
                   <h5 className="font-semibold text-dark-900">Regular Backups</h5>

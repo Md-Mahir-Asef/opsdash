@@ -97,41 +97,6 @@ export const FAQ: React.FC = () => {
             </Card>
           ))}
         </div>
-
-        <div className="bg-gradient-to-r from-primary-600 to-primary-700 rounded-2xl p-8 text-white">
-          <div className="text-center">
-            <h3 className="text-2xl font-bold mb-4">
-              Still Have Questions?
-            </h3>
-            <p className="text-primary-100 mb-6 max-w-2xl mx-auto">
-              Our support team is here to help. Whether you need technical assistance, 
-              want to schedule a demo, or have questions about pricing, we're here for you.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-white text-primary-600 font-semibold py-3 px-6 rounded-lg hover:bg-primary-50 transition-colors">
-                Contact Support
-              </button>
-              <button className="border-2 border-white text-white font-semibold py-3 px-6 rounded-lg hover:bg-white hover:text-primary-600 transition-colors">
-                Schedule Demo
-              </button>
-            </div>
-            
-            <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-2xl mx-auto">
-              <div className="text-center">
-                <div className="text-2xl font-bold mb-1">24/7</div>
-                <p className="text-primary-100 text-sm">Email Support</p>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold mb-1">&lt;2hrs</div>
-                <p className="text-primary-100 text-sm">Response Time</p>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold mb-1">98%</div>
-                <p className="text-primary-100 text-sm">Satisfaction Rate</p>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
   );
