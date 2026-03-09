@@ -10,6 +10,7 @@
         "preview": "vite preview"
     },
     "dependencies": {
+        "@clerk/react-router": "^3.0.1",
         "axios": "^1.13.5",
         "clsx": "^2.1.1",
         "dotenv": "^17.3.1",

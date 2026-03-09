@@ -23,6 +23,7 @@
         "typescript": "^5.9.3"
     },
     "dependencies": {
+        "@clerk/express": "^2.0.1",
         "@prisma/adapter-pg": "^7.4.1",
         "@prisma/client": "^7.4.1",
         "bcrypt": "^6.0.0",
