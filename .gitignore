@@ -2,9 +2,11 @@
 **/node_modules
 .env
 **/logs
+**/dist
 
 # Client
 client/.env
+client/dist
 
 # Server
 server/.env

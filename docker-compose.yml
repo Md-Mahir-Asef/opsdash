@@ -14,7 +14,7 @@ services:
             - "5173:5173"
         volumes:
             - ./client:/app:cached
-            # - /app/node_modules # It is causing problem with prisma generation on new schema
+            - /app/node_modules
         tty: true
         init: true
         command: ["npm", "run", "dev", "--", "--host", "0.0.0.0"]
