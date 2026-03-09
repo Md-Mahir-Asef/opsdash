@@ -25,12 +25,7 @@ export const UseCases: React.FC = () => {
         "Team workload management", 
         "Deadline monitoring",
         "Client reporting"
-      ],
-      stats: {
-        projects: "25+",
-        clients: "15+",
-        teamSize: "5-15"
-      }
+      ]
     },
     {
       icon: <Briefcase className="h-8 w-8" />,
@@ -42,12 +37,7 @@ export const UseCases: React.FC = () => {
         "Engagement management",
         "Professional reporting",
         "Compliance documentation"
-      ],
-      stats: {
-        projects: "20+",
-        clients: "10+",
-        teamSize: "3-10"
-      }
+      ]
     },
     {
       icon: <Palette className="h-8 w-8" />,
@@ -59,12 +49,7 @@ export const UseCases: React.FC = () => {
         "Creative workflow management",
         "Performance tracking",
         "Multi-channel management"
-      ],
-      stats: {
-        projects: "30+",
-        clients: "12+",
-        teamSize: "8-20"
-      }
+      ]
     },
     {
       icon: <Camera className="h-8 w-8" />,
@@ -76,12 +61,7 @@ export const UseCases: React.FC = () => {
         "Timeline management",
         "Resource allocation",
         "Client collaboration"
-      ],
-      stats: {
-        projects: "18+",
-        clients: "8+",
-        teamSize: "4-12"
-      }
+      ]
     }
   ];
 
@@ -139,24 +119,6 @@ export const UseCases: React.FC = () => {
                       ))}
                     </ul>
                   </div>
-                  <div className="bg-dark-100 rounded-lg p-4 border border-dark-300">
-                    <h4 className="font-medium text-dark-900 mb-2">Typical Scale</h4>
-                    <div className="grid grid-cols-3 gap-4 text-center">
-                      <div>
-                        <div className="text-lg font-bold text-primary-600">{useCase.stats.projects}</div>
-                        <div className="text-xs text-dark-600">Projects</div>
-                      </div>
-                      <div>
-                        <div className="text-lg font-bold text-primary-600">{useCase.stats.clients}</div>
-                        <div className="text-xs text-dark-600">Clients</div>
-                      </div>
-                      <div>
-                        <div className="text-lg font-bold text-primary-600">{useCase.stats.teamSize}</div>
-                        <div className="text-xs text-dark-600">Team Size</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
               </CardContent>
             </Card>
           ))}

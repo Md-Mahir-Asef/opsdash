@@ -26,9 +26,6 @@ export const Hero: React.FC = () => {
                 Get Started Free
                 <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </Button>
-              <Button variant="secondary" size="lg">
-                Schedule Demo
-              </Button>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-8">
