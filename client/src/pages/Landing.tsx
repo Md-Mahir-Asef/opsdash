@@ -1,7 +1,6 @@
 import React from "react";
 import { Navigation } from "../components/common/Navigation";
 import { Hero } from "../components/sections/Hero";
-import { Problem } from "../components/sections/Problem";
 import { Solution } from "../components/sections/Solution";
 import { Features } from "../components/sections/Features";
 import { ProductDemo } from "../components/sections/ProductDemo";
@@ -18,7 +17,6 @@ export const Landing: React.FC = () => {
             <Navigation />
             <main>
                 <Hero />
-                <Problem />
                 <Solution />
                 <Features />
                 <ProductDemo />
