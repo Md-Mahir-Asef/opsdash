@@ -14,6 +14,7 @@ import UsersPage from "./pages/auth/UsersPage";
 import OrganizationsPage from "./pages/auth/OrganizationsPage";
 import SettingsPage from "./pages/auth/SettingsPage";
 import ReportsPage from "./pages/auth/ReportsPage";
+import { ProtectedRoute } from "./components/auth/ProtectedRoute.tsx";
 
 // Layout component that wraps children with ClerkProvider
 const ClerkLayout = ({ children }: { children: React.ReactNode }) => (
@@ -55,7 +56,9 @@ export const router = createBrowserRouter([
         path: "/dashboard",
         element: (
             <ClerkLayout>
-                <MainLayout />
+                <ProtectedRoute>
+                    <MainLayout />
+                </ProtectedRoute>
             </ClerkLayout>
         ),
         children: [

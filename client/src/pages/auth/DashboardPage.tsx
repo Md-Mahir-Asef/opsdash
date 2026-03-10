@@ -5,8 +5,68 @@ import {
     Activity,
     CheckSquare,
 } from "lucide-react";
+import { useState, useEffect } from "react";
+import { CardSkeleton } from "../../components/common/LoadingSkeleton";
 
 export default function DashboardPage() {
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        // Simulate data loading
+        const timer = setTimeout(() => {
+            setIsLoading(false);
+        }, 2000);
+
+        return () => clearTimeout(timer);
+    }, []);
+
+    if (isLoading) {
+        return (
+            <div className="p-8">
+                <div className="mb-8">
+                    <div className="h-10 bg-dark-200 rounded w-1/3 animate-pulse mb-2"></div>
+                    <div className="h-5 bg-dark-200 rounded w-1/2 animate-pulse"></div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    {[1, 2, 3, 4].map((i) => (
+                        <CardSkeleton key={i} />
+                    ))}
+                </div>
+
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div className="bg-dark-100 border border-dark-300 rounded-lg p-6">
+                        <div className="h-6 bg-dark-200 rounded w-1/4 animate-pulse mb-4"></div>
+                        <div className="space-y-3">
+                            {[1, 2, 3].map((i) => (
+                                <div
+                                    key={i}
+                                    className="flex items-center space-x-3"
+                                >
+                                    <div className="w-4 h-4 bg-dark-200 rounded animate-pulse"></div>
+                                    <div className="h-4 bg-dark-200 rounded w-3/4 animate-pulse"></div>
+                                    <div className="h-4 bg-dark-200 rounded w-16 animate-pulse ml-auto"></div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    <div className="bg-dark-100 border border-dark-300 rounded-lg p-6">
+                        <div className="h-6 bg-dark-200 rounded w-1/3 animate-pulse mb-4"></div>
+                        <div className="space-y-3">
+                            {[1, 2, 3].map((i) => (
+                                <div
+                                    key={i}
+                                    className="h-12 bg-dark-200 rounded animate-pulse"
+                                ></div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className="p-8">
             <div className="mb-8">

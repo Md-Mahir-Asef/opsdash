@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "./Button";
+import { useAuth } from "@clerk/react-router";
 
 export const Navigation: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -22,6 +23,8 @@ export const Navigation: React.FC = () => {
         { label: "Use Cases", href: "#use-cases" },
         { label: "Pricing", href: "#pricing" },
     ];
+
+    const { isSignedIn } = useAuth();
 
     return (
         <nav
@@ -54,9 +57,23 @@ export const Navigation: React.FC = () => {
                                 {item.label}
                             </a>
                         ))}
-                        <Button size="sm" onClick={() => navigate("/sign-in")}>
-                            Get Started
-                        </Button>
+                        {/* Place to Work */}
+                        {isSignedIn ? (
+                            <Button
+                                size="sm"
+                                onClick={() => navigate("/dashboard")}
+                            >
+                                Dashboard
+                            </Button>
+                        ) : (
+                            <Button
+                                size="sm"
+                                variant="secondary"
+                                onClick={() => navigate("/sign-in")}
+                            >
+                                Get Started
+                            </Button>
+                        )}
                     </div>
 
                     <div className="md:hidden">
