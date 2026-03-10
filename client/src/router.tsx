@@ -6,6 +6,7 @@ import Health from "./pages/Health";
 import SignInPage from "./pages/SignInPage.tsx";
 import SignUpPage from "./pages/SignUpPage.tsx";
 import { NotFoundPage } from "./pages/NotFoundPage";
+import Dashboard from "./pages/auth/Dashboard.tsx";
 
 // Layout component that wraps children with ClerkProvider
 const ClerkLayout = ({ children }: { children: React.ReactNode }) => (
@@ -40,6 +41,14 @@ export const router = createBrowserRouter([
         element: (
             <ClerkLayout>
                 <Health />
+            </ClerkLayout>
+        ),
+    },
+    {
+        path: "/dashboard",
+        element: (
+            <ClerkLayout>
+                <Dashboard />
             </ClerkLayout>
         ),
     },
