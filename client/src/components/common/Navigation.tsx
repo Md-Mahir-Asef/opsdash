@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "./Button";
 
 export const Navigation: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -52,7 +54,9 @@ export const Navigation: React.FC = () => {
                                 {item.label}
                             </a>
                         ))}
-                        <Button size="sm">Get Started</Button>
+                        <Button size="sm" onClick={() => navigate("/sign-in")}>
+                            Get Started
+                        </Button>
                     </div>
 
                     <div className="md:hidden">
@@ -83,7 +87,11 @@ export const Navigation: React.FC = () => {
                                 </a>
                             ))}
                             <div className="px-3 py-2">
-                                <Button size="sm" className="w-full">
+                                <Button
+                                    size="sm"
+                                    className="w-full"
+                                    onClick={() => navigate("/sign-in")}
+                                >
                                     Get Started
                                 </Button>
                             </div>

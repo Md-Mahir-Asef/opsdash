@@ -1,15 +1,21 @@
 import React from "react";
-import { Zap, Mail, Phone } from "lucide-react";
+import { Mail, Phone } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "./Button";
 
 export const Footer: React.FC = () => {
+    const navigate = useNavigate();
     return (
         <footer className="bg-dark-100 border-t border-dark-300">
             <div className="container-max section-padding">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                     <div className="col-span-1 md:col-span-2">
                         <div className="flex items-center space-x-2 mb-4">
-                            <Zap className="h-8 w-8 text-primary-500" />
+                            <img
+                                src="/logo-no-bg.png"
+                                alt="OpsDash Logo"
+                                className="h-8 w-8"
+                            />
                             <span className="text-xl font-bold text-dark-900">
                                 OpsDash
                             </span>
@@ -20,7 +26,12 @@ export const Footer: React.FC = () => {
                             tasks, and team members efficiently.
                         </p>
                         <div className="flex space-x-4">
-                            <Button size="sm">Get Started Free</Button>
+                            <Button
+                                size="sm"
+                                onClick={() => navigate("/sign-in")}
+                            >
+                                Get Started Free
+                            </Button>
                         </div>
                     </div>
 

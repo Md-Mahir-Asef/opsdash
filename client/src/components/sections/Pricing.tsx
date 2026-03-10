@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { CheckCircle, Star, ArrowRight, CreditCard } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { Card, CardHeader, CardContent } from "../common/Card";
 import { Button } from "../common/Button";
 
 export const Pricing: React.FC = () => {
     const [isAnnual, setIsAnnual] = useState(false);
+    const navigate = useNavigate();
 
     const pricingTiers = [
         {
@@ -173,9 +175,16 @@ export const Pricing: React.FC = () => {
                                             ? "bg-primary-600 hover:bg-primary-700 text-white"
                                             : "bg-dark-200 hover:bg-dark-300 text-dark-800"
                                     }`}
+                                    onClick={
+                                        tier.cta === "Start Free Trial"
+                                            ? () => navigate("/sign-in")
+                                            : undefined
+                                    }
                                 >
                                     {tier.cta}
-                                    <ArrowRight className="ml-2 h-5 w-5" />
+                                    {tier.cta === "Start Free Trial" && (
+                                        <ArrowRight className="ml-2 h-5 w-5" />
+                                    )}
                                 </Button>
 
                                 <ul className="space-y-3">

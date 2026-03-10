@@ -1,8 +1,10 @@
 import React from "react";
 import { ArrowRight, Zap, CheckCircle, Star, Mail, Phone } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "../common/Button";
 
 export const CTA: React.FC = () => {
+    const navigate = useNavigate();
     return (
         <section className="py-20 bg-gradient-to-br from-primary-600 to-primary-700">
             <div className="container-max">
@@ -25,6 +27,7 @@ export const CTA: React.FC = () => {
                         <Button
                             size="lg"
                             className="bg-white text-primary-600 hover:bg-primary-50 shadow-xl"
+                            onClick={() => navigate("/sign-in")}
                         >
                             Start Your Free Trial
                             <ArrowRight className="ml-2 h-5 w-5" />
