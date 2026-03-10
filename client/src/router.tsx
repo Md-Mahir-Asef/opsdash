@@ -6,7 +6,14 @@ import Health from "./pages/Health";
 import SignInPage from "./pages/SignInPage.tsx";
 import SignUpPage from "./pages/SignUpPage.tsx";
 import { NotFoundPage } from "./pages/NotFoundPage";
-import Dashboard from "./pages/auth/Dashboard.tsx";
+import MainLayout from "./components/layout/MainLayout";
+import DashboardPage from "./pages/auth/DashboardPage";
+import ProjectsPage from "./pages/auth/ProjectsPage";
+import TasksPage from "./pages/auth/TasksPage";
+import UsersPage from "./pages/auth/UsersPage";
+import OrganizationsPage from "./pages/auth/OrganizationsPage";
+import SettingsPage from "./pages/auth/SettingsPage";
+import ReportsPage from "./pages/auth/ReportsPage";
 
 // Layout component that wraps children with ClerkProvider
 const ClerkLayout = ({ children }: { children: React.ReactNode }) => (
@@ -48,9 +55,39 @@ export const router = createBrowserRouter([
         path: "/dashboard",
         element: (
             <ClerkLayout>
-                <Dashboard />
+                <MainLayout />
             </ClerkLayout>
         ),
+        children: [
+            {
+                index: true,
+                element: <DashboardPage />,
+            },
+            {
+                path: "projects",
+                element: <ProjectsPage />,
+            },
+            {
+                path: "tasks",
+                element: <TasksPage />,
+            },
+            {
+                path: "users",
+                element: <UsersPage />,
+            },
+            {
+                path: "organizations",
+                element: <OrganizationsPage />,
+            },
+            {
+                path: "settings",
+                element: <SettingsPage />,
+            },
+            {
+                path: "reports",
+                element: <ReportsPage />,
+            },
+        ],
     },
     {
         path: "/sign-in/*",
