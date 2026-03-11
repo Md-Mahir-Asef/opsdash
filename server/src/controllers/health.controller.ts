@@ -20,18 +20,12 @@ export const getHealth = (req: Request, res: Response) => {
             },
         };
 
-        res.status(200).json(healthData);
+        res.sendApi(healthData, "Server is healthy and running", 200);
     } catch (error) {
-        res.status(503).json({
-            error: "Service unavailable",
-            timestamp: new Date().toISOString(),
-        });
+        res.sendErr("Service unavailable", "Service unavailable", 503);
     }
 };
 
 export const ping = (req: Request, res: Response) => {
-    res.status(200).json({
-        pong: true,
-        timestamp: new Date().toISOString(),
-    });
+    res.sendApi({ pong: true }, "Server is responsive", 200);
 };

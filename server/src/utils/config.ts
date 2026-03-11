@@ -8,4 +8,5 @@ export const config = {
     SERVER_BCRYPT_SALT_ROUND: process.env["SERVER_BCRYPT_SALT_ROUND"],
     SERVER_JWT_SECRET: process.env["SERVER_JWT_SECRET"],
     CLIENT_URL_DEVELOPMENT: process.env["CLIENT_URL_DEVELOPMENT"],
+    CLERK_SECRET_KEY: process.env["CLERK_SECRET_KEY"],
 };

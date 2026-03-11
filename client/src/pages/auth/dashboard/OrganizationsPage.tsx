@@ -1,11 +1,29 @@
-import { Building2, Plus, Search, Filter, Settings, Users } from "lucide-react";
+import { Building2, Plus, Settings, Users } from "lucide-react";
+import { useOrganizationList } from "@clerk/react-router";
+import { useState, useEffect } from "react";
+
+interface OrganizationData {
+    name: string;
+    imageUrl: string;
+    members: number;
+    role: string;
+    slug: string;
+}
 
 export default function OrganizationsPage() {
+    const [organizations, setOrganizations] = useState<OrganizationData[]>([]);
+
+    const { userMemberships } = useOrganizationList({
+        userMemberships: true,
+    });
+
+    useEffect(() => {});
+
     return (
         <div className="p-8">
             <div className="mb-8">
                 <h1 className="text-3xl font-bold text-dark-900 mb-2">
-                    Organizations
+                    Your Organizations
                 </h1>
                 <p className="text-dark-600">
                     Multi-organization support and admin control
@@ -13,20 +31,6 @@ export default function OrganizationsPage() {
             </div>
 
             <div className="flex items-center justify-between mb-6">
-                <div className="flex items-center space-x-4">
-                    <div className="relative">
-                        <Search className="w-5 h-5 text-dark-500 absolute left-3 top-1/2 transform -translate-y-1/2" />
-                        <input
-                            type="text"
-                            placeholder="Search organizations..."
-                            className="pl-10 pr-4 py-2 bg-dark-100 border border-dark-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600 text-dark-900"
-                        />
-                    </div>
-                    <button className="flex items-center space-x-2 px-4 py-2 bg-dark-100 border border-dark-300 rounded-lg hover:bg-dark-200">
-                        <Filter className="w-4 h-4" />
-                        <span>Filter</span>
-                    </button>
-                </div>
                 <button className="flex items-center space-x-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700">
                     <Plus className="w-4 h-4" />
                     <span>New Organization</span>

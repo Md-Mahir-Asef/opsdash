@@ -4,14 +4,14 @@ import Header from "./Header";
 
 export default function MainLayout() {
     return (
-        <div className="flex h-screen bg-dark-50">
-            <Sidebar />
-            <main className="flex-1 overflow-auto flex flex-col">
-                <Header />
-                <div className="flex-1 overflow-auto">
+        <div className="h-screen bg-dark-50 flex flex-col">
+            <Header />
+            <div className="flex flex-1 overflow-auto">
+                <Sidebar />
+                <main className="flex-1 overflow-auto">
                     <Outlet />
-                </div>
-            </main>
+                </main>
+            </div>
         </div>
     );
 }

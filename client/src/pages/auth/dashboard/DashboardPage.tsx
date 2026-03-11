@@ -6,7 +6,7 @@ import {
     CheckSquare,
 } from "lucide-react";
 import { useState, useEffect } from "react";
-import { CardSkeleton } from "../../components/common/LoadingSkeleton";
+import { CardSkeleton } from "../../../components/common/LoadingSkeleton";
 
 export default function DashboardPage() {
     const [isLoading, setIsLoading] = useState(true);

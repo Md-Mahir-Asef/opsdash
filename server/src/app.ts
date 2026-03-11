@@ -7,6 +7,7 @@ import { responseWrapper } from "./middlewares/responseWrapper.middleware";
 import { config } from "./utils/config";
 import swaggerUi from "swagger-ui-express";
 import { swaggerSpec } from "../src/utils/swagger";
+import { clerkMiddleware } from "@clerk/express";
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use(
     }),
 );
 app.use(express.json());
+app.use(clerkMiddleware());
 app.use(responseWrapper);
 app.use(requestLogger);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));

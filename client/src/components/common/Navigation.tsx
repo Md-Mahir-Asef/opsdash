@@ -61,6 +61,7 @@ export const Navigation: React.FC = () => {
                         {isSignedIn ? (
                             <Button
                                 size="sm"
+                                variant="white"
                                 onClick={() => navigate("/dashboard")}
                             >
                                 Dashboard
@@ -68,7 +69,7 @@ export const Navigation: React.FC = () => {
                         ) : (
                             <Button
                                 size="sm"
-                                variant="secondary"
+                                variant="primary"
                                 onClick={() => navigate("/sign-in")}
                             >
                                 Get Started
