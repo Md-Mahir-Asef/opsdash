@@ -1,21 +1,15 @@
 import type { Request, Response } from "express";
 import { getAuth } from "@clerk/express";
+import { clerk } from "../utils/clerk";
 
-export const getOrganizationData = (req: Request, res: Response) => {
+export const getOrgMembers = async (req: Request, res: Response) => {
     try {
         const info = getAuth(req);
-        console.log(info);
-        res.sendApi(info);
-    } catch (err) {
-        console.log(err);
-    }
-};
-
-export const getOrganizationList = (req: Request, res: Response) => {
-    try {
-        const info = getAuth(req);
-        console.log(info);
-        res.sendApi(info);
+        const memberships =
+            await clerk.organizations.getOrganizationMembershipList({
+                organizationId: String(info.orgId),
+            });
+        res.sendApi(memberships);
     } catch (err) {
         console.log(err);
     }

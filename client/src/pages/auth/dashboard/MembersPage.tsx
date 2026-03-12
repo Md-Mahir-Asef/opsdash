@@ -1,33 +1,19 @@
-import { Users, Plus, Search, Filter, Mail, Shield } from "lucide-react";
+import { Users, Plus, Mail, Shield } from "lucide-react";
 
-export default function UsersPage() {
+export default function MembersPage() {
     return (
         <div className="p-8">
             <div className="mb-8">
-                <h1 className="text-3xl font-bold text-dark-900 mb-2">Users</h1>
+                <h1 className="text-3xl font-bold text-dark-900 mb-2">Members</h1>
                 <p className="text-dark-600">
-                    Manage staff/clients and permissions
+                    Manage viewers, staffs and clients and their permissions
                 </p>
             </div>
 
             <div className="flex items-center justify-between mb-6">
-                <div className="flex items-center space-x-4">
-                    <div className="relative">
-                        <Search className="w-5 h-5 text-dark-500 absolute left-3 top-1/2 transform -translate-y-1/2" />
-                        <input
-                            type="text"
-                            placeholder="Search users..."
-                            className="pl-10 pr-4 py-2 bg-dark-100 border border-dark-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600 text-dark-900"
-                        />
-                    </div>
-                    <button className="flex items-center space-x-2 px-4 py-2 bg-dark-100 border border-dark-300 rounded-lg hover:bg-dark-200">
-                        <Filter className="w-4 h-4" />
-                        <span>Filter</span>
-                    </button>
-                </div>
                 <button className="flex items-center space-x-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700">
                     <Plus className="w-4 h-4" />
-                    <span>Invite User</span>
+                    <span>Invite Member</span>
                 </button>
             </div>
 
@@ -36,7 +22,7 @@ export default function UsersPage() {
                     <thead className="bg-dark-200">
                         <tr>
                             <th className="px-6 py-3 text-left text-xs font-medium text-dark-700 uppercase tracking-wider">
-                                User
+                                Member
                             </th>
                             <th className="px-6 py-3 text-left text-xs font-medium text-dark-700 uppercase tracking-wider">
                                 Role

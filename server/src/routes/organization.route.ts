@@ -1,10 +1,9 @@
 import { Router } from "express";
-import { getOrganizationData, getOrganizationList } from "../controllers/organization.controller";
+import { getOrgMembers } from "../controllers/organization.controller";
 import { requireAuth } from "@clerk/express";
 
 const organizationRoutes = Router();
 
-organizationRoutes.get("/", requireAuth(), getOrganizationData);
-organizationRoutes.get("/list", requireAuth(), getOrganizationList);
+organizationRoutes.get("/members", requireAuth(), getOrgMembers);
 
 export default organizationRoutes;

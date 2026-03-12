@@ -10,7 +10,7 @@ import MainLayout from "./components/layout/MainLayout";
 import DashboardPage from "./pages/auth/dashboard/DashboardPage.tsx";
 import ProjectsPage from "./pages/auth/dashboard/ProjectsPage.tsx";
 import TasksPage from "./pages/auth/dashboard/TasksPage.tsx";
-import UsersPage from "./pages/auth/dashboard/UsersPage.tsx";
+import MembersPage from "./pages/auth/dashboard/MembersPage.tsx";
 import SettingsPage from "./pages/auth/dashboard/SettingsPage.tsx";
 import ReportsPage from "./pages/auth/dashboard/ReportsPage.tsx";
 import { ProtectedRoute } from "./components/auth/ProtectedRoute.tsx";
@@ -74,8 +74,8 @@ export const router = createBrowserRouter([
                 element: <TasksPage />,
             },
             {
-                path: "users",
-                element: <UsersPage />,
+                path: "members",
+                element: <MembersPage />,
             },
             {
                 path: "settings",

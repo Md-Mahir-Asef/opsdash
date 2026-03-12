@@ -12,7 +12,7 @@ const menuItems = [
     { path: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
     { path: "/dashboard/projects", label: "Projects", icon: FolderKanban },
     { path: "/dashboard/tasks", label: "Tasks", icon: CheckSquare },
-    { path: "/dashboard/users", label: "Users", icon: Users },
+    { path: "/dashboard/members", label: "Members", icon: Users },
     { path: "/dashboard/settings", label: "Settings", icon: Settings },
     {
         path: "/dashboard/reports",
