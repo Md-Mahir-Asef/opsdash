@@ -4,7 +4,6 @@ import {
     FolderKanban,
     CheckSquare,
     Users,
-    Building2,
     Settings,
     BarChart3,
 } from "lucide-react";
@@ -14,11 +13,6 @@ const menuItems = [
     { path: "/dashboard/projects", label: "Projects", icon: FolderKanban },
     { path: "/dashboard/tasks", label: "Tasks", icon: CheckSquare },
     { path: "/dashboard/users", label: "Users", icon: Users },
-    {
-        path: "/dashboard/organizations",
-        label: "Organizations",
-        icon: Building2,
-    },
     { path: "/dashboard/settings", label: "Settings", icon: Settings },
     {
         path: "/dashboard/reports",

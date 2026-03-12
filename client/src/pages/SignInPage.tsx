@@ -14,7 +14,9 @@ export default function SignInPage() {
                         OpsDash
                     </span>
                 </div>
-                <SignIn afterSignOutUrl={"/"} />
+                <SignIn
+                    afterSignOutUrl={"/"}
+                />
             </div>
         </div>
     );

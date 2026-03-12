@@ -1,21 +1,19 @@
-import { ChevronDown, Bell, Settings } from "lucide-react";
+import { Bell, Settings } from "lucide-react";
+import { OrganizationSwitcher } from "@clerk/react-router";
 
 export default function Header() {
     return (
         <header className="bg-dark-100 border-b border-dark-300 px-6 py-3">
             <div className="flex items-center justify-between">
                 {/* Left Section - Workspace Selector */}
-                <div className="flex items-center space-x-4">
-                    <button className="flex items-center space-x-2 px-3 py-2 bg-dark-200 hover:bg-dark-300 rounded-lg transition-colors">
-                        <div className="w-6 h-6 bg-primary-600 rounded flex items-center justify-center text-white text-xs font-bold">
-                            M
-                        </div>
-                        <span className="text-dark-900 font-medium">
-                            Md Mahir Asef's Workspace
-                        </span>
-                        <ChevronDown className="w-4 h-4 text-dark-600" />
-                    </button>
-                </div>
+
+                <OrganizationSwitcher
+                    appearance={{
+                        elements: {
+                            organizationSwitcherTriggerText: "text-white",
+                        },
+                    }}
+                />
 
                 {/* Right Section - Action Icons & User Profile */}
                 <div className="flex items-center space-x-3">

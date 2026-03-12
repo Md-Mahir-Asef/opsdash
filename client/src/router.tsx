@@ -11,11 +11,9 @@ import DashboardPage from "./pages/auth/dashboard/DashboardPage.tsx";
 import ProjectsPage from "./pages/auth/dashboard/ProjectsPage.tsx";
 import TasksPage from "./pages/auth/dashboard/TasksPage.tsx";
 import UsersPage from "./pages/auth/dashboard/UsersPage.tsx";
-import OrganizationsPage from "./pages/auth/dashboard/OrganizationsPage.tsx";
 import SettingsPage from "./pages/auth/dashboard/SettingsPage.tsx";
 import ReportsPage from "./pages/auth/dashboard/ReportsPage.tsx";
 import { ProtectedRoute } from "./components/auth/ProtectedRoute.tsx";
-import OrganizationList from "./pages/auth/OrganizationList.tsx";
 
 // Layout component that wraps children with ClerkProvider
 const ClerkLayout = ({ children }: { children: React.ReactNode }) => (
@@ -54,16 +52,6 @@ export const router = createBrowserRouter([
         ),
     },
     {
-        path: "/organizations",
-        element: (
-            <ClerkLayout>
-                <ProtectedRoute>
-                    <OrganizationList />
-                </ProtectedRoute>
-            </ClerkLayout>
-        ),
-    },
-    {
         path: "/dashboard",
         element: (
             <ClerkLayout>
@@ -88,10 +76,6 @@ export const router = createBrowserRouter([
             {
                 path: "users",
                 element: <UsersPage />,
-            },
-            {
-                path: "organizations",
-                element: <OrganizationsPage />,
             },
             {
                 path: "settings",
