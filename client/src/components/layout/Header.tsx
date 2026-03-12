@@ -1,19 +1,20 @@
 import { Bell, Settings } from "lucide-react";
-import { OrganizationSwitcher } from "@clerk/react-router";
+import { OrganizationSwitcher, UserButton } from "@clerk/react-router";
 
 export default function Header() {
     return (
         <header className="bg-dark-100 border-b border-dark-300 px-6 py-3">
             <div className="flex items-center justify-between">
                 {/* Left Section - Workspace Selector */}
-
-                <OrganizationSwitcher
-                    appearance={{
-                        elements: {
-                            organizationSwitcherTriggerText: "text-white",
-                        },
-                    }}
-                />
+                <div className="bg-white rounded-md px-4 py-2">
+                    <OrganizationSwitcher
+                        appearance={{
+                            elements: {
+                                organizationPreviewAvatarBox: "w-6 h-6",
+                            },
+                        }}
+                    />
+                </div>
 
                 {/* Right Section - Action Icons & User Profile */}
                 <div className="flex items-center space-x-3">
@@ -26,13 +27,8 @@ export default function Header() {
                     </button>
 
                     {/* User Profile Avatar */}
-                    <div className="flex items-center space-x-2 ml-2 pl-2 border-l border-dark-300">
-                        <button className="flex items-center space-x-2">
-                            <div className="w-8 h-8 bg-primary-600 rounded-full flex items-center justify-center text-white text-sm font-bold relative">
-                                MA
-                                <span className="absolute bottom-0 right-0 w-2 h-2 bg-green-500 rounded-full border-2 border-dark-100"></span>
-                            </div>
-                        </button>
+                    <div>
+                        <UserButton />
                     </div>
                 </div>
             </div>
