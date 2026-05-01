@@ -6,29 +6,15 @@ import Health from "./pages/Health";
 import SignInPage from "./pages/SignInPage.tsx";
 import SignUpPage from "./pages/SignUpPage.tsx";
 import { NotFoundPage } from "./pages/NotFoundPage";
-<<<<<<< HEAD
-<<<<<<< HEAD
 import MainLayout from "./components/layout/MainLayout";
 import DashboardPage from "./pages/auth/dashboard/DashboardPage.tsx";
 import ProjectsPage from "./pages/auth/dashboard/ProjectsPage.tsx";
 import TasksPage from "./pages/auth/dashboard/TasksPage.tsx";
-import MembersPage from "./pages/auth/dashboard/MembersPage.tsx";
 import SettingsPage from "./pages/auth/dashboard/SettingsPage.tsx";
 import ReportsPage from "./pages/auth/dashboard/ReportsPage.tsx";
 import { ProtectedRoute } from "./components/auth/ProtectedRoute.tsx";
-=======
-import Dashboard from "./pages/auth/Dashboard.tsx";
->>>>>>> 65d0bf2 (Feat(Dashboard): basic dashboard setup.)
-=======
-import MainLayout from "./components/layout/MainLayout";
-import DashboardPage from "./pages/auth/DashboardPage";
-import ProjectsPage from "./pages/auth/ProjectsPage";
-import TasksPage from "./pages/auth/TasksPage";
 import UsersPage from "./pages/auth/UsersPage";
 import OrganizationsPage from "./pages/auth/OrganizationsPage";
-import SettingsPage from "./pages/auth/SettingsPage";
-import ReportsPage from "./pages/auth/ReportsPage";
->>>>>>> f098a74 (Feat(Dashboard): Make a Dummy Dashboard.)
 
 // Layout component that wraps children with ClerkProvider
 const ClerkLayout = ({ children }: { children: React.ReactNode }) => (
@@ -70,46 +56,9 @@ export const router = createBrowserRouter([
         path: "/dashboard",
         element: (
             <ClerkLayout>
-<<<<<<< HEAD
-<<<<<<< HEAD
                 <ProtectedRoute>
                     <MainLayout />
                 </ProtectedRoute>
-            </ClerkLayout>
-        ),
-        children: [
-            {
-                index: true,
-                element: <DashboardPage />,
-            },
-            {
-                path: "projects",
-                element: <ProjectsPage />,
-            },
-            {
-                path: "tasks",
-                element: <TasksPage />,
-            },
-            {
-                path: "members",
-                element: <MembersPage />,
-            },
-            {
-                path: "settings",
-                element: <SettingsPage />,
-            },
-            {
-                path: "reports",
-                element: <ReportsPage />,
-            },
-        ],
-=======
-                <Dashboard />
-            </ClerkLayout>
-        ),
->>>>>>> 65d0bf2 (Feat(Dashboard): basic dashboard setup.)
-=======
-                <MainLayout />
             </ClerkLayout>
         ),
         children: [
@@ -142,7 +91,6 @@ export const router = createBrowserRouter([
                 element: <ReportsPage />,
             },
         ],
->>>>>>> f098a74 (Feat(Dashboard): Make a Dummy Dashboard.)
     },
     {
         path: "/sign-in/*",
