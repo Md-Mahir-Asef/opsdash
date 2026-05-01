@@ -6,6 +6,7 @@ import Health from "./pages/Health";
 import SignInPage from "./pages/SignInPage.tsx";
 import SignUpPage from "./pages/SignUpPage.tsx";
 import { NotFoundPage } from "./pages/NotFoundPage";
+<<<<<<< HEAD
 import MainLayout from "./components/layout/MainLayout";
 import DashboardPage from "./pages/auth/dashboard/DashboardPage.tsx";
 import ProjectsPage from "./pages/auth/dashboard/ProjectsPage.tsx";
@@ -14,6 +15,9 @@ import MembersPage from "./pages/auth/dashboard/MembersPage.tsx";
 import SettingsPage from "./pages/auth/dashboard/SettingsPage.tsx";
 import ReportsPage from "./pages/auth/dashboard/ReportsPage.tsx";
 import { ProtectedRoute } from "./components/auth/ProtectedRoute.tsx";
+=======
+import Dashboard from "./pages/auth/Dashboard.tsx";
+>>>>>>> 65d0bf2 (Feat(Dashboard): basic dashboard setup.)
 
 // Layout component that wraps children with ClerkProvider
 const ClerkLayout = ({ children }: { children: React.ReactNode }) => (
@@ -55,6 +59,7 @@ export const router = createBrowserRouter([
         path: "/dashboard",
         element: (
             <ClerkLayout>
+<<<<<<< HEAD
                 <ProtectedRoute>
                     <MainLayout />
                 </ProtectedRoute>
@@ -86,6 +91,11 @@ export const router = createBrowserRouter([
                 element: <ReportsPage />,
             },
         ],
+=======
+                <Dashboard />
+            </ClerkLayout>
+        ),
+>>>>>>> 65d0bf2 (Feat(Dashboard): basic dashboard setup.)
     },
     {
         path: "/sign-in/*",
