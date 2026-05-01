@@ -7,6 +7,7 @@ import SignInPage from "./pages/SignInPage.tsx";
 import SignUpPage from "./pages/SignUpPage.tsx";
 import { NotFoundPage } from "./pages/NotFoundPage";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import MainLayout from "./components/layout/MainLayout";
 import DashboardPage from "./pages/auth/dashboard/DashboardPage.tsx";
 import ProjectsPage from "./pages/auth/dashboard/ProjectsPage.tsx";
@@ -18,6 +19,16 @@ import { ProtectedRoute } from "./components/auth/ProtectedRoute.tsx";
 =======
 import Dashboard from "./pages/auth/Dashboard.tsx";
 >>>>>>> 65d0bf2 (Feat(Dashboard): basic dashboard setup.)
+=======
+import MainLayout from "./components/layout/MainLayout";
+import DashboardPage from "./pages/auth/DashboardPage";
+import ProjectsPage from "./pages/auth/ProjectsPage";
+import TasksPage from "./pages/auth/TasksPage";
+import UsersPage from "./pages/auth/UsersPage";
+import OrganizationsPage from "./pages/auth/OrganizationsPage";
+import SettingsPage from "./pages/auth/SettingsPage";
+import ReportsPage from "./pages/auth/ReportsPage";
+>>>>>>> f098a74 (Feat(Dashboard): Make a Dummy Dashboard.)
 
 // Layout component that wraps children with ClerkProvider
 const ClerkLayout = ({ children }: { children: React.ReactNode }) => (
@@ -60,6 +71,7 @@ export const router = createBrowserRouter([
         element: (
             <ClerkLayout>
 <<<<<<< HEAD
+<<<<<<< HEAD
                 <ProtectedRoute>
                     <MainLayout />
                 </ProtectedRoute>
@@ -96,6 +108,41 @@ export const router = createBrowserRouter([
             </ClerkLayout>
         ),
 >>>>>>> 65d0bf2 (Feat(Dashboard): basic dashboard setup.)
+=======
+                <MainLayout />
+            </ClerkLayout>
+        ),
+        children: [
+            {
+                index: true,
+                element: <DashboardPage />,
+            },
+            {
+                path: "projects",
+                element: <ProjectsPage />,
+            },
+            {
+                path: "tasks",
+                element: <TasksPage />,
+            },
+            {
+                path: "users",
+                element: <UsersPage />,
+            },
+            {
+                path: "organizations",
+                element: <OrganizationsPage />,
+            },
+            {
+                path: "settings",
+                element: <SettingsPage />,
+            },
+            {
+                path: "reports",
+                element: <ReportsPage />,
+            },
+        ],
+>>>>>>> f098a74 (Feat(Dashboard): Make a Dummy Dashboard.)
     },
     {
         path: "/sign-in/*",

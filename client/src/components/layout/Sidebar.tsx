@@ -4,6 +4,10 @@ import {
     FolderKanban,
     CheckSquare,
     Users,
+<<<<<<< HEAD
+=======
+    Building2,
+>>>>>>> f098a74 (Feat(Dashboard): Make a Dummy Dashboard.)
     Settings,
     BarChart3,
 } from "lucide-react";
@@ -12,7 +16,16 @@ const menuItems = [
     { path: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
     { path: "/dashboard/projects", label: "Projects", icon: FolderKanban },
     { path: "/dashboard/tasks", label: "Tasks", icon: CheckSquare },
+<<<<<<< HEAD
     { path: "/dashboard/members", label: "Members", icon: Users },
+=======
+    { path: "/dashboard/users", label: "Users", icon: Users },
+    {
+        path: "/dashboard/organizations",
+        label: "Organizations",
+        icon: Building2,
+    },
+>>>>>>> f098a74 (Feat(Dashboard): Make a Dummy Dashboard.)
     { path: "/dashboard/settings", label: "Settings", icon: Settings },
     {
         path: "/dashboard/reports",
@@ -37,7 +50,10 @@ export default function Sidebar() {
                             <li key={item.path}>
                                 <NavLink
                                     to={item.path}
+<<<<<<< HEAD
                                     end={item.path === "/dashboard"}
+=======
+>>>>>>> f098a74 (Feat(Dashboard): Make a Dummy Dashboard.)
                                     className={({ isActive }) =>
                                         `flex items-center px-4 py-3 rounded-lg transition-colors duration-200 ${
                                             isActive
