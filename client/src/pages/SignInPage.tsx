@@ -15,7 +15,7 @@ export default function SignInPage() {
                     </span>
                 </div>
                 <SignIn
-                    afterSignOutUrl={"/"}
+                    afterSignOutUrl={"/dashboard"}
                 />
             </div>
         </div>

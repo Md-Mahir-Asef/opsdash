@@ -1,8 +1,7 @@
 ---
 title: OpsDash Product Requirement Document (PRD)
-client: Md. Mahir Asef
 project_name: OpsDash
-prepared_by: Client (Mahir)
+Developed By: Md. Mahir Asef
 date: 19 Feb 2026
 version: 1.0
 ---
@@ -31,7 +30,7 @@ OpsDash is an internal operations dashboard designed for small agencies to manag
 | Admin  | Full access: manage clients, projects, tasks, users, view all dashboards, generate reports, activity logs. |
 | Staff  | Access to assigned projects & tasks, can update task status, view dashboards relevant to assignments.      |
 | Viewer | Read-only access to assigned projects/tasks.                                                               |
-| Client | Can view only their own projects and tasks, limited dashboard.                                             |
+| Client | Can view, edit, add only their own projects and tasks, limited dashboard.                                  |
 
 **Notes:** Roles can be extended in the future.
 
@@ -39,7 +38,7 @@ OpsDash is an internal operations dashboard designed for small agencies to manag
 
 ## 3. Functional Requirements
 
-### 3.1 Authentication & Authorization
+### 3.1 - [x] Authentication & Authorization
 
 - Use Clerk for authentication.
 - Roles and permissions enforced on backend (via middleware) and frontend.
@@ -49,7 +48,7 @@ OpsDash is an internal operations dashboard designed for small agencies to manag
 ### 3.2 Client Management
 
 - CRUD operations: create, read, update, delete clients.
-- Store fields: `id`, `name`, `email`, `company`, `phone`, `address`, `notes`, `tags`, `created_at`, `updated_at`.
+- Store fields: `id`, `name`, `email`, `company`, `phone`, `address`, `created_at`, `updated_at`.
 - Assign multiple projects to each client.
 
 ### 3.3 Project Management
