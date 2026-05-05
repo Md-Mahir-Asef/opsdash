@@ -40,10 +40,10 @@ OpsDash is an internal operations dashboard designed for small agencies to manag
 
 ### 3.1 - [x] Authentication & Authorization
 
-- Use Clerk for authentication.
-- Roles and permissions enforced on backend (via middleware) and frontend.
-- Session validation for all API endpoints.
-- Users linked to PostgreSQL `users` table via Clerk `user_id`.
+- [x] Use Clerk for authentication.
+- [x] Roles and permissions enforced on backend (via middleware) and frontend.
+- [x] Session validation for all API endpoints.
+- [ ] Users linked to PostgreSQL `users` table via Clerk `user_id`.
 
 ### 3.2 Member Management
 
@@ -54,15 +54,17 @@ OpsDash is an internal operations dashboard designed for small agencies to manag
 #### Actions
 
 - [x] Load Memebrs of that organization in the Backend from Clerk.
-- Load Memebrs of that organization by page in the Backend from Clerk.
+- [x] Load Memebrs of that organization by page in the Backend from Clerk.
 - [x] Load Members of that organization in the Frontend from Backend.
-- Load Members of that organization by page in the Frontend from Backend.
+- [x] Load Members of that organization by page in the Frontend from Backend.
 
 #### Features for later
 
-- [] Invite Member
-- [] Search Member
-- [] Filter Member
+- [ ] Invite Member
+- [ ] Search Member
+- [ ] Filter Member
+- [ ] View Member
+- [ ] Filter by Role
 
 ### 3.3 Project Management
 

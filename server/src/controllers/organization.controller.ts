@@ -58,11 +58,27 @@ export const getOrgMembersCount = async (req: Request, res: Response) => {
             organizationId: String(info.orgId),
         });
 
+        // Count members by role
+        const roleCounts = org.reduce(
+            (acc, member) => {
+                const roleName = member.role.slice(4); // Remove 'org:' prefix
+                acc[roleName] = (acc[roleName] || 0) + 1;
+                return acc;
+            },
+            {} as Record<string, number>,
+        );
+
         logger.info(
-            `GET Membership Count ${org.length} for Organization ${info.orgId}`,
+            `GET Members Count ${org.length} for Organization ${info.orgId}`,
+        );
+        logger.info(
+            `Admins: ${roleCounts["admin"] || 0}; Staffs: ${roleCounts["staff"] || 0}; Clients: ${roleCounts["client"] || 0}`,
         );
         res.sendApi({
-            count: org.length,
+            members: org.length,
+            admins: roleCounts["admin"] || 0,
+            staff: roleCounts["staff"] || 0,
+            clients: roleCounts["client"] || 0,
         });
     } catch (err) {
         logger.error(`Can't GET Membership Count for Organization.`, err);

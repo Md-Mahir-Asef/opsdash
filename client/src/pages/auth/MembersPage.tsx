@@ -1,4 +1,12 @@
-import { Users, Plus, Search, Filter, Mail, Shield } from "lucide-react";
+import {
+    Users,
+    Plus,
+    Search,
+    Filter,
+    Mail,
+    Shield,
+    UserCheck,
+} from "lucide-react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { config } from "../../utils/config";
@@ -21,6 +29,9 @@ export default function MembersPage() {
     const [members, setMembers] = useState<Member[]>([]);
     const [loading, setLoading] = useState(true);
     const [totalMembers, setTotalMembers] = useState(0);
+    const [adminCount, setAdminCount] = useState(0);
+    const [staffCount, setStaffCount] = useState(0);
+    const [clientCount, setClientCount] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const itemsPerPage = 5;
@@ -34,14 +45,18 @@ export default function MembersPage() {
                     `${config.VITE_SERVER_DEVELOPMENT_BASE_URL}/organization/members/count`,
                     { withCredentials: true },
                 );
-                const totalCount = membersCount.data.data.count;
-                setTotalMembers(totalCount);
 
-                // Calculate total pages
-                const calculatedTotalPages = Math.ceil(
-                    totalCount / itemsPerPage,
+                console.log(
+                    "/organization/members/count Got Response: ",
+                    membersCount,
                 );
-                setTotalPages(calculatedTotalPages);
+                const countData = membersCount.data.data;
+                console.log("Organization Members Count Data: ", countData);
+
+                setTotalMembers(countData.members);
+                setAdminCount(countData.admins);
+                setStaffCount(countData.staff);
+                setClientCount(countData.clients);
 
                 const membersByPage = await axios.get(
                     `${config.VITE_SERVER_DEVELOPMENT_BASE_URL}/organization/members/page?page=${currentPage}`,
@@ -84,6 +99,11 @@ export default function MembersPage() {
     useEffect(() => {
         console.log(members.length);
         console.log("Members state updated:", members[0]);
+        // Calculate total pages
+        const calculatedTotalPages = Math.ceil(totalMembers / itemsPerPage);
+        setTotalPages(calculatedTotalPages);
+
+        console.log("Total Pages: ", totalPages);
     }, [members]);
 
     return (
@@ -212,7 +232,7 @@ export default function MembersPage() {
                 </div>
             )}
 
-            <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <div className="bg-dark-100 border border-dark-300 rounded-lg p-6">
                     <div className="flex items-center justify-between mb-4">
                         <Users className="w-8 h-8 text-primary-600" />
@@ -232,10 +252,7 @@ export default function MembersPage() {
                     <div className="flex items-center justify-between mb-4">
                         <Shield className="w-8 h-8 text-primary-600" />
                         <span className="text-2xl font-bold text-dark-900">
-                            {
-                                members.filter((m) => m.role_name === "admin")
-                                    .length
-                            }
+                            {adminCount}
                         </span>
                     </div>
                     <h3 className="text-lg font-semibold text-dark-900">
@@ -250,16 +267,26 @@ export default function MembersPage() {
                     <div className="flex items-center justify-between mb-4">
                         <Mail className="w-8 h-8 text-primary-600" />
                         <span className="text-2xl font-bold text-dark-900">
-                            {
-                                members.filter((m) => m.role_name === "staff")
-                                    .length
-                            }
+                            {staffCount}
                         </span>
                     </div>
                     <h3 className="text-lg font-semibold text-dark-900">
                         Staff Members
                     </h3>
                     <p className="text-sm text-dark-600">Staff users</p>
+                </div>
+
+                <div className="bg-dark-100 border border-dark-300 rounded-lg p-6">
+                    <div className="flex items-center justify-between mb-4">
+                        <UserCheck className="w-8 h-8 text-primary-600" />
+                        <span className="text-2xl font-bold text-dark-900">
+                            {clientCount}
+                        </span>
+                    </div>
+                    <h3 className="text-lg font-semibold text-dark-900">
+                        Clients
+                    </h3>
+                    <p className="text-sm text-dark-600">Client users</p>
                 </div>
             </div>
         </div>
