@@ -45,7 +45,7 @@ OpsDash is an internal operations dashboard designed for small agencies to manag
 - Session validation for all API endpoints.
 - Users linked to PostgreSQL `users` table via Clerk `user_id`.
 
-### 3.2 Client Management
+### 3.2 Member Management
 
 - CRUD operations: create, read, update, delete clients.
 - Store fields: `id`, `name`, `email`, `company`, `phone`, `address`, `created_at`, `updated_at`.
