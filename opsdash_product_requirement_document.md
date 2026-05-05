@@ -53,9 +53,9 @@ OpsDash is an internal operations dashboard designed for small agencies to manag
 
 #### Actions
 
-- Load Memebrs of that organization in the Backend from Clerk.
+- [x] Load Memebrs of that organization in the Backend from Clerk.
 - Load Memebrs of that organization by page in the Backend from Clerk.
-- Load Members of that organization in the Frontend from Backend.
+- [x] Load Members of that organization in the Frontend from Backend.
 - Load Members of that organization by page in the Frontend from Backend.
 
 ### 3.3 Project Management

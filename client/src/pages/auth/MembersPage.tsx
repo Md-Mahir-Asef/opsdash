@@ -2,30 +2,47 @@ import { Users, Plus, Search, Filter, Mail, Shield } from "lucide-react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { config } from "../../utils/config";
-import type { OrganizationMembershipJSON } from "@clerk/react-router/types";
 
-interface OrganizationMembership extends OrganizationMembershipJSON {
-    role_name_in_org?: string | undefined;
+interface Member {
+    id: string;
+    role: string;
+    publicUserData?: {
+        firstName?: string;
+        lastName?: string;
+        identifier?: string;
+        imageUrl?: string;
+        userName?: string;
+    };
+    role_name?: string;
 }
 
 export default function MembersPage() {
-    const [members, setMembers] = useState<OrganizationMembership[]>([]);
+    const [members, setMembers] = useState<Member[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [totalMembers, setTotalMembers] = useState(0);
+    const [page, setPage] = useState(1);
 
     useEffect(() => {
         const load_organization_members = async () => {
             try {
-                const response = await axios.get(
-                    `${config.VITE_SERVER_DEVELOPMENT_BASE_URL}/organization/members`,
+                const membersCount = await axios.get(
+                    `${config.VITE_SERVER_DEVELOPMENT_BASE_URL}/organization/members/count`,
+                    { withCredentials: true },
+                );
+                setTotalMembers(membersCount.data.data.count);
+                const membersByPage = await axios.get(
+                    `${config.VITE_SERVER_DEVELOPMENT_BASE_URL}/organization/members/page?${page}`,
                     { withCredentials: true },
                 );
                 console.info(
-                    `/organization/members: Got Response`,
-                    response.data.data,
+                    `/organization/members/page: Got Response`,
+                    membersByPage.data.data,
                 );
-                const membersWithRoleName = response.data.data.map(
-                    (member: OrganizationMembershipJSON) => ({
+                const membersWithRoleName = membersByPage.data.data.map(
+                    (member: Member) => ({
                         ...member,
-                        role_name_in_org: member.role.slice(4),
+                        role_name: member.role.slice(4),
+                        publicUserData: member.publicUserData,
                     }),
                 );
                 setMembers(membersWithRoleName);
@@ -34,6 +51,8 @@ export default function MembersPage() {
                     `/organization/members: Got Error Response \n\n`,
                     error,
                 );
+            } finally {
+                setLoading(false);
             }
         };
         load_organization_members();
@@ -41,7 +60,8 @@ export default function MembersPage() {
 
     // To see if members state is really updated or not
     useEffect(() => {
-        console.log("Members state updated:", members);
+        console.log(members.length);
+        console.log("Members state updated:", members[0]);
     }, [members]);
 
     return (
@@ -74,73 +94,89 @@ export default function MembersPage() {
                 </button>
             </div>
 
-            <div className="bg-dark-100 border border-dark-300 rounded-lg overflow-hidden">
-                <table className="w-full">
-                    <thead className="bg-dark-200">
-                        <tr>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-dark-700 uppercase tracking-wider">
-                                User
-                            </th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-dark-700 uppercase tracking-wider">
-                                Role
-                            </th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-dark-700 uppercase tracking-wider">
-                                Actions
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody className="divide-y divide-dark-300">
-                        {members.map((member) => (
-                            <tr key={member.id} className="hover:bg-dark-200">
-                                <td className="px-6 py-4 whitespace-nowrap">
-                                    <div className="flex items-center">
-                                        <div className="w-10 h-10 bg-primary-600 rounded-full flex items-center justify-center text-white font-medium">
-                                            <img
-                                                src={`${member.public_user_data?.image_url}`}
-                                                alt="Member"
-                                            />
-                                        </div>
-                                        <div className="ml-4">
-                                            <div className="text-sm font-medium text-dark-900">
-                                                {`${member.public_user_data?.first_name} ${member.public_user_data?.last_name}`}
-                                            </div>
-                                            <div className="text-sm text-dark-500">
-                                                {
-                                                    member.public_user_data
-                                                        ?.identifier
-                                                }
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td className="px-6 py-4 whitespace-nowrap">
-                                    <span
-                                        className={`px-2 py-1 text-xs rounded-full ${
-                                            member.role_name_in_org === "admin"
-                                                ? "bg-purple-100 text-purple-800"
-                                                : member.role_name === "staff"
-                                                  ? "bg-blue-100 text-blue-800"
-                                                  : "bg-gray-100 text-gray-800"
-                                        }`}
-                                    >
-                                        {member.role_name_in_org}
-                                    </span>
-                                </td>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                    <div className="flex items-center space-x-2">
-                                        <button className="text-primary-600 hover:text-primary-900">
-                                            Edit
-                                        </button>
-                                        <button className="text-red-600 hover:text-red-900">
-                                            Remove
-                                        </button>
-                                    </div>
-                                </td>
+            {loading ? (
+                <div className="bg-dark-100 border border-dark-300 rounded-lg p-12">
+                    <div className="flex flex-col items-center justify-center">
+                        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mb-4"></div>
+                        <p className="text-dark-600 text-lg">
+                            Loading members...
+                        </p>
+                    </div>
+                </div>
+            ) : (
+                <div className="bg-dark-100 border border-dark-300 rounded-lg overflow-hidden">
+                    <table className="w-full">
+                        <thead className="bg-dark-200">
+                            <tr>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-dark-700 uppercase tracking-wider">
+                                    User
+                                </th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-dark-700 uppercase tracking-wider">
+                                    Role
+                                </th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-dark-700 uppercase tracking-wider">
+                                    Actions
+                                </th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
+                        </thead>
+                        <tbody className="divide-y divide-dark-300">
+                            {members.map((member) => (
+                                <tr
+                                    key={member.id}
+                                    className="hover:bg-dark-200"
+                                >
+                                    <td className="px-6 py-4 whitespace-nowrap">
+                                        <div className="flex items-center">
+                                            <div className="w-10 h-10 bg-primary-600 rounded-full flex items-center justify-center text-white font-medium">
+                                                <img
+                                                    src={`${member.publicUserData?.imageUrl}`}
+                                                    alt="Member"
+                                                    className="rounded-full"
+                                                />
+                                            </div>
+                                            <div className="ml-4">
+                                                <div className="text-sm font-medium text-dark-900">
+                                                    {`${member.publicUserData?.firstName} ${member.publicUserData?.lastName}`}
+                                                </div>
+                                                <div className="text-sm text-dark-500">
+                                                    {
+                                                        member.publicUserData
+                                                            ?.identifier
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap">
+                                        <span
+                                            className={`px-2 py-1 text-xs rounded-full ${
+                                                member.role_name === "admin"
+                                                    ? "bg-green-100 text-green-800"
+                                                    : member.role_name ===
+                                                        "staff"
+                                                      ? "bg-blue-100 text-blue-800"
+                                                      : "bg-red-100 text-red-800"
+                                            }`}
+                                        >
+                                            {member.role_name}
+                                        </span>
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                        <div className="flex items-center space-x-2">
+                                            <button className="text-primary-600 hover:text-primary-900">
+                                                Edit
+                                            </button>
+                                            <button className="text-red-600 hover:text-red-900">
+                                                Remove
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            )}
 
             <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="bg-dark-100 border border-dark-300 rounded-lg p-6">
