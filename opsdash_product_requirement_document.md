@@ -45,7 +45,7 @@ OpsDash is an internal operations dashboard designed for small agencies to manag
 - [x] Session validation for all API endpoints.
 - [ ] Users linked to PostgreSQL `users` table via Clerk `user_id`.
 
-### 3.2 Member Management
+### 3.2 - [x] Member Management
 
 - CRUD operations: create, read, update, delete clients.
 - Store fields: `id`, `name`, `email`, `company`, `phone`, `address`, `created_at`, `updated_at`.
@@ -68,10 +68,20 @@ OpsDash is an internal operations dashboard designed for small agencies to manag
 
 ### 3.3 Project Management
 
+#### Description
+
+A task must be from a project. A task can't live alone and Projects should have tasks but a project can exist without any tasks.
+
 - CRUD operations for projects.
-- Fields: `id`, `client_id`, `title`, `description`, `status`, `start_date`, `end_date`, `priority`, `budget`, `created_at`, `updated_at`.
+- Fields: `id`, `client_id`, `title`, `description`, `status`, `start_date`, `end_date`, `priority`, `budget`, `created_at`, `updated_at`, `tasks`.
 - Status predefined (To Do, In Progress, Done) and customizable by Admin.
 - Projects linked to one client only.
+
+#### Actions
+
+- [ ] Create a Database Table for Projects.
+- [ ] Connect the DB to Prisma ORM.
+- [ ] Connect the Database with Docker and run that successfully.
 
 ### 3.4 Task Management
 
