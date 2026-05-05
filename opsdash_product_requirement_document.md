@@ -51,6 +51,13 @@ OpsDash is an internal operations dashboard designed for small agencies to manag
 - Store fields: `id`, `name`, `email`, `company`, `phone`, `address`, `created_at`, `updated_at`.
 - Assign multiple projects to each client.
 
+#### Actions
+
+- Load Memebrs of that organization in the Backend from Clerk.
+- Load Memebrs of that organization by page in the Backend from Clerk.
+- Load Members of that organization in the Frontend from Backend.
+- Load Members of that organization by page in the Frontend from Backend.
+
 ### 3.3 Project Management
 
 - CRUD operations for projects.

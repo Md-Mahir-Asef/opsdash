@@ -1,6 +1,39 @@
 import { Users, Plus, Search, Filter, Mail, Shield } from "lucide-react";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { config } from "../../utils/config";
+import type { OrganizationMembershipJSON } from "@clerk/react-router/types";
 
 export default function UsersPage() {
+    const [members, setMembers] = useState<OrganizationMembershipJSON[]>([]);
+
+    useEffect(() => {
+        const load_organization_members = async () => {
+            try {
+                const response = await axios.get(
+                    `${config.VITE_SERVER_DEVELOPMENT_BASE_URL}/organization/members`,
+                    { withCredentials: true },
+                );
+                console.info(
+                    `/organization/members: Got Response`,
+                    response.data.data,
+                );
+                setMembers(response.data.data);
+            } catch (error) {
+                console.error(
+                    `/organization/members: Got Error Response \n\n`,
+                    error,
+                );
+            }
+        };
+        load_organization_members();
+    }, []);
+
+    // Add this separate effect to see when members actually updates
+    useEffect(() => {
+        console.log("Members state updated:", members);
+    }, [members]);
+
     return (
         <div className="p-8">
             <div className="mb-8">
@@ -42,9 +75,6 @@ export default function UsersPage() {
                                 Role
                             </th>
                             <th className="px-6 py-3 text-left text-xs font-medium text-dark-700 uppercase tracking-wider">
-                                Status
-                            </th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-dark-700 uppercase tracking-wider">
                                 Permissions
                             </th>
                             <th className="px-6 py-3 text-left text-xs font-medium text-dark-700 uppercase tracking-wider">
@@ -52,9 +82,9 @@ export default function UsersPage() {
                             </th>
                         </tr>
                     </thead>
-                    <tbody className="divide-y divide-dark-300">
-                        {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
-                            <tr key={i} className="hover:bg-dark-200">
+                    {/* <tbody className="divide-y divide-dark-300">
+                        {members.map((member) => (
+                            <tr key={member.id} className="hover:bg-dark-200">
                                 <td className="px-6 py-4 whitespace-nowrap">
                                     <div className="flex items-center">
                                         <div className="w-10 h-10 bg-primary-600 rounded-full flex items-center justify-center text-white font-medium">
@@ -62,7 +92,7 @@ export default function UsersPage() {
                                         </div>
                                         <div className="ml-4">
                                             <div className="text-sm font-medium text-dark-900">
-                                                User {i}
+                                                {member}
                                             </div>
                                             <div className="text-sm text-dark-500">
                                                 user{i}@example.com
@@ -117,7 +147,7 @@ export default function UsersPage() {
                                 </td>
                             </tr>
                         ))}
-                    </tbody>
+                    </tbody> */}
                 </table>
             </div>
 
