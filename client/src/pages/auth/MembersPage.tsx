@@ -2,6 +2,7 @@ import { Users, Plus, Search, Filter, Mail, Shield } from "lucide-react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { config } from "../../utils/config";
+import { Pagination } from "../../components/common/Pagination";
 
 interface Member {
     id: string;
@@ -20,25 +21,41 @@ export default function MembersPage() {
     const [members, setMembers] = useState<Member[]>([]);
     const [loading, setLoading] = useState(true);
     const [totalMembers, setTotalMembers] = useState(0);
-    const [page, setPage] = useState(1);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+    const itemsPerPage = 5;
 
     useEffect(() => {
         const load_organization_members = async () => {
             try {
+                setLoading(true);
+
                 const membersCount = await axios.get(
                     `${config.VITE_SERVER_DEVELOPMENT_BASE_URL}/organization/members/count`,
                     { withCredentials: true },
                 );
-                setTotalMembers(membersCount.data.data.count);
+                const totalCount = membersCount.data.data.count;
+                setTotalMembers(totalCount);
+
+                // Calculate total pages
+                const calculatedTotalPages = Math.ceil(
+                    totalCount / itemsPerPage,
+                );
+                setTotalPages(calculatedTotalPages);
+
                 const membersByPage = await axios.get(
-                    `${config.VITE_SERVER_DEVELOPMENT_BASE_URL}/organization/members/page?${page}`,
+                    `${config.VITE_SERVER_DEVELOPMENT_BASE_URL}/organization/members/page?page=${currentPage}`,
                     { withCredentials: true },
                 );
                 console.info(
                     `/organization/members/page: Got Response`,
                     membersByPage.data.data,
                 );
-                const membersWithRoleName = membersByPage.data.data.map(
+
+                // Handle both response formats (with and without pagination wrapper)
+                const membersData =
+                    membersByPage.data.data.members || membersByPage.data.data;
+                const membersWithRoleName = membersData.map(
                     (member: Member) => ({
                         ...member,
                         role_name: member.role.slice(4),
@@ -56,7 +73,12 @@ export default function MembersPage() {
             }
         };
         load_organization_members();
-    }, []);
+    }, [currentPage]);
+
+    // Handle page changes
+    const handlePageChange = (page: number) => {
+        setCurrentPage(page);
+    };
 
     // To see if members state is really updated or not
     useEffect(() => {
@@ -178,12 +200,24 @@ export default function MembersPage() {
                 </div>
             )}
 
+            {/* Pagination Component */}
+            {!loading && (
+                <div className="mt-6">
+                    <Pagination
+                        currentPage={currentPage}
+                        totalPages={totalPages}
+                        onPageChange={handlePageChange}
+                        isLoading={loading}
+                    />
+                </div>
+            )}
+
             <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="bg-dark-100 border border-dark-300 rounded-lg p-6">
                     <div className="flex items-center justify-between mb-4">
                         <Users className="w-8 h-8 text-primary-600" />
                         <span className="text-2xl font-bold text-dark-900">
-                            8
+                            {totalMembers}
                         </span>
                     </div>
                     <h3 className="text-lg font-semibold text-dark-900">
@@ -198,7 +232,10 @@ export default function MembersPage() {
                     <div className="flex items-center justify-between mb-4">
                         <Shield className="w-8 h-8 text-primary-600" />
                         <span className="text-2xl font-bold text-dark-900">
-                            2
+                            {
+                                members.filter((m) => m.role_name === "admin")
+                                    .length
+                            }
                         </span>
                     </div>
                     <h3 className="text-lg font-semibold text-dark-900">
@@ -213,13 +250,16 @@ export default function MembersPage() {
                     <div className="flex items-center justify-between mb-4">
                         <Mail className="w-8 h-8 text-primary-600" />
                         <span className="text-2xl font-bold text-dark-900">
-                            2
+                            {
+                                members.filter((m) => m.role_name === "staff")
+                                    .length
+                            }
                         </span>
                     </div>
                     <h3 className="text-lg font-semibold text-dark-900">
-                        Pending Invites
+                        Staff Members
                     </h3>
-                    <p className="text-sm text-dark-600">Awaiting response</p>
+                    <p className="text-sm text-dark-600">Staff users</p>
                 </div>
             </div>
         </div>

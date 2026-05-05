@@ -58,6 +58,12 @@ OpsDash is an internal operations dashboard designed for small agencies to manag
 - [x] Load Members of that organization in the Frontend from Backend.
 - Load Members of that organization by page in the Frontend from Backend.
 
+#### Features for later
+
+- [] Invite Member
+- [] Search Member
+- [] Filter Member
+
 ### 3.3 Project Management
 
 - CRUD operations for projects.
