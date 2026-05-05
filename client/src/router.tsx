@@ -13,7 +13,7 @@ import TasksPage from "./pages/auth/dashboard/TasksPage.tsx";
 import SettingsPage from "./pages/auth/dashboard/SettingsPage.tsx";
 import ReportsPage from "./pages/auth/dashboard/ReportsPage.tsx";
 import { ProtectedRoute } from "./components/auth/ProtectedRoute.tsx";
-import UsersPage from "./pages/auth/UsersPage";
+import MembersPage from "./pages/auth/MembersPage.tsx";
 import OrganizationsPage from "./pages/auth/OrganizationsPage";
 
 // Layout component that wraps children with ClerkProvider
@@ -75,8 +75,8 @@ export const router = createBrowserRouter([
                 element: <TasksPage />,
             },
             {
-                path: "users",
-                element: <UsersPage />,
+                path: "members",
+                element: <MembersPage />,
             },
             {
                 path: "organizations",

@@ -4,8 +4,12 @@ import { useEffect, useState } from "react";
 import { config } from "../../utils/config";
 import type { OrganizationMembershipJSON } from "@clerk/react-router/types";
 
-export default function UsersPage() {
-    const [members, setMembers] = useState<OrganizationMembershipJSON[]>([]);
+interface OrganizationMembership extends OrganizationMembershipJSON {
+    role_name_in_org?: string | undefined;
+}
+
+export default function MembersPage() {
+    const [members, setMembers] = useState<OrganizationMembership[]>([]);
 
     useEffect(() => {
         const load_organization_members = async () => {
@@ -18,7 +22,13 @@ export default function UsersPage() {
                     `/organization/members: Got Response`,
                     response.data.data,
                 );
-                setMembers(response.data.data);
+                const membersWithRoleName = response.data.data.map(
+                    (member: OrganizationMembershipJSON) => ({
+                        ...member,
+                        role_name_in_org: member.role.slice(4),
+                    }),
+                );
+                setMembers(membersWithRoleName);
             } catch (error) {
                 console.error(
                     `/organization/members: Got Error Response \n\n`,
@@ -29,7 +39,7 @@ export default function UsersPage() {
         load_organization_members();
     }, []);
 
-    // Add this separate effect to see when members actually updates
+    // To see if members state is really updated or not
     useEffect(() => {
         console.log("Members state updated:", members);
     }, [members]);
@@ -75,27 +85,30 @@ export default function UsersPage() {
                                 Role
                             </th>
                             <th className="px-6 py-3 text-left text-xs font-medium text-dark-700 uppercase tracking-wider">
-                                Permissions
-                            </th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-dark-700 uppercase tracking-wider">
                                 Actions
                             </th>
                         </tr>
                     </thead>
-                    {/* <tbody className="divide-y divide-dark-300">
+                    <tbody className="divide-y divide-dark-300">
                         {members.map((member) => (
                             <tr key={member.id} className="hover:bg-dark-200">
                                 <td className="px-6 py-4 whitespace-nowrap">
                                     <div className="flex items-center">
                                         <div className="w-10 h-10 bg-primary-600 rounded-full flex items-center justify-center text-white font-medium">
-                                            {String.fromCharCode(65 + i)}
+                                            <img
+                                                src={`${member.public_user_data?.image_url}`}
+                                                alt="Member"
+                                            />
                                         </div>
                                         <div className="ml-4">
                                             <div className="text-sm font-medium text-dark-900">
-                                                {member}
+                                                {`${member.public_user_data?.first_name} ${member.public_user_data?.last_name}`}
                                             </div>
                                             <div className="text-sm text-dark-500">
-                                                user{i}@example.com
+                                                {
+                                                    member.public_user_data
+                                                        ?.identifier
+                                                }
                                             </div>
                                         </div>
                                     </div>
@@ -103,37 +116,15 @@ export default function UsersPage() {
                                 <td className="px-6 py-4 whitespace-nowrap">
                                     <span
                                         className={`px-2 py-1 text-xs rounded-full ${
-                                            i === 1
+                                            member.role_name_in_org === "admin"
                                                 ? "bg-purple-100 text-purple-800"
-                                                : i <= 3
+                                                : member.role_name === "staff"
                                                   ? "bg-blue-100 text-blue-800"
                                                   : "bg-gray-100 text-gray-800"
                                         }`}
                                     >
-                                        {i === 1
-                                            ? "Admin"
-                                            : i <= 3
-                                              ? "Manager"
-                                              : "Member"}
+                                        {member.role_name_in_org}
                                     </span>
-                                </td>
-                                <td className="px-6 py-4 whitespace-nowrap">
-                                    <span
-                                        className={`px-2 py-1 text-xs rounded-full ${
-                                            i <= 6
-                                                ? "bg-green-100 text-green-800"
-                                                : "bg-yellow-100 text-yellow-800"
-                                        }`}
-                                    >
-                                        {i <= 6 ? "Active" : "Pending"}
-                                    </span>
-                                </td>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm text-dark-500">
-                                    {i === 1
-                                        ? "Full Access"
-                                        : i <= 3
-                                          ? "Read & Write"
-                                          : "Read Only"}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                     <div className="flex items-center space-x-2">
@@ -147,7 +138,7 @@ export default function UsersPage() {
                                 </td>
                             </tr>
                         ))}
-                    </tbody> */}
+                    </tbody>
                 </table>
             </div>
 

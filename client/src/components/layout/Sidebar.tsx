@@ -14,7 +14,6 @@ const menuItems = [
     { path: "/dashboard/projects", label: "Projects", icon: FolderKanban },
     { path: "/dashboard/tasks", label: "Tasks", icon: CheckSquare },
     { path: "/dashboard/members", label: "Members", icon: Users },
-    { path: "/dashboard/users", label: "Users", icon: Users },
     {
         path: "/dashboard/organizations",
         label: "Organizations",
