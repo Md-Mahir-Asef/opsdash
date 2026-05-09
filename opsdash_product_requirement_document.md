@@ -86,6 +86,10 @@ A task must be from a project. A task can't live alone and Projects should have 
 - [x] Create a Database Table for Tasks. (It is required to build the Projects Table.)
 - [x] Connect the DB to Prisma ORM.
 - [x] Connect the Database with Docker and run that successfully.
+- [ ] Build CreateProject Contoller and route.
+- [ ] Build GetProject Contoller and route.
+- [ ] Build UpdateProject Contoller and route.
+- [ ] Build DeleteProject Contoller and route.
 - [ ] Load all the projects of that organization in the Backend.
 - [ ] Allow the Client to view only his project in the dashboard of the organization.
 - [ ] Allow the Admin to view all projects in the dashboard of the organization.

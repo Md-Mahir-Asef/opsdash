@@ -1,6 +1,7 @@
 import { Router } from "express";
 import organizationRoutes from "./organization.route";
 import { getHealth, ping } from "../controllers/health.controller";
+import projectRoutes from "./project.route";
 
 const routes = Router();
 
@@ -33,5 +34,6 @@ routes.get("/health", getHealth);
 routes.get("/health/ping", ping);
 
 routes.use("/organization", organizationRoutes);
+routes.use("/project", projectRoutes);
 
 export default routes;

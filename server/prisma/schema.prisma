@@ -21,8 +21,8 @@ model Project {
   status       Status    @default(Unconfirmed)
   client_email String
   due_date     DateTime?
-  start_date   DateTime
-  end_date     DateTime
+  start_date   DateTime  @default(now())
+  end_date     DateTime?
   budget       BigInt
   created_at   DateTime  @default(now())
   updated_at   DateTime  @updatedAt
