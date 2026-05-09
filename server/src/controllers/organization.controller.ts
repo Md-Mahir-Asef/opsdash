@@ -2,15 +2,16 @@ import type { Request, Response } from "express";
 import { getAuth } from "@clerk/express";
 import { clerk } from "../utils/clerk";
 import logger from "../utils/logger";
-import type { OrganizationMembership } from "@clerk/clerk-sdk-node";
+import type { OrganizationMembership } from "@clerk/express";
 
 export const getOrgMembers = async (req: Request, res: Response) => {
     try {
         const info = getAuth(req);
-        const memberships: OrganizationMembership[] =
+        const membershipsResponse =
             await clerk.organizations.getOrganizationMembershipList({
                 organizationId: String(info.orgId),
             });
+        const memberships: OrganizationMembership[] = membershipsResponse.data;
         logger.info(`GET Membership Details for Organization ${info.orgId}`);
         res.sendApi(memberships);
     } catch (err) {
@@ -25,12 +26,13 @@ export const getOrgMembersByPage = async (req: Request, res: Response) => {
         const page = parseInt(req.query["page"] as string) || 1;
         const limit = 5;
 
-        const memberships: OrganizationMembership[] =
+        const membershipsResponse =
             await clerk.organizations.getOrganizationMembershipList({
                 organizationId: String(info.orgId),
                 offset: (page - 1) * limit,
                 limit: limit,
             });
+        const memberships: OrganizationMembership[] = membershipsResponse.data;
 
         logger.info(
             `GET Page ${page} of Membership Details for Organization ${info.orgId}`,
@@ -54,13 +56,15 @@ export const getOrgMembersCount = async (req: Request, res: Response) => {
     try {
         const info = getAuth(req);
 
-        const org = await clerk.organizations.getOrganizationMembershipList({
-            organizationId: String(info.orgId),
-        });
+        const orgResponse =
+            await clerk.organizations.getOrganizationMembershipList({
+                organizationId: String(info.orgId),
+            });
+        const org: OrganizationMembership[] = orgResponse.data;
 
         // Count members by role
         const roleCounts = org.reduce(
-            (acc, member) => {
+            (acc: Record<string, number>, member: OrganizationMembership) => {
                 const roleName = member.role.slice(4); // Remove 'org:' prefix
                 acc[roleName] = (acc[roleName] || 0) + 1;
                 return acc;

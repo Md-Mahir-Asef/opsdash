@@ -36,32 +36,28 @@ services:
         volumes:
             - ./server:/app:cached
             - /app/node_modules
-        # depends_on:
-        #     db:
-        #         condition: service_healthy
         depends_on:
-            - client
+            db:
+                condition: service_healthy
         tty: true
         init: true
-        # command: >
-        # sh -c "sleep 10 && npx prisma db push && npx ts-node prisma/seed.ts && sleep 10 && npm run dev"
         command: >
-            sh -c "sleep 10 && npm run dev"
+            sh -c "sleep 10 && npx prisma db push && npx ts-node prisma/seed.ts && sleep 10 && npm run dev"
 
-    # db:
-    #     image: postgres:15
-    #     container_name: opsdash-db-dev
-    #     restart: always
-    #     env_file:
-    #         - ./server/.env
-    #     ports:
-    #         - "15432:5432"
-    #     volumes:
-    #         - db_data:/var/lib/postgresql/data
-    #     healthcheck:
-    #         test: ["CMD-SHELL", "pg_isready -d opsdash_db -U opsdash_dev"]
-    #         interval: 5s
-    #         retries: 5
+    db:
+        image: postgres:15
+        container_name: opsdash-db-dev
+        restart: always
+        env_file:
+            - ./server/.env
+        ports:
+            - "15432:5432"
+        volumes:
+            - db_data:/var/lib/postgresql/data
+        healthcheck:
+            test: ["CMD-SHELL", "pg_isready -d opsdash_db -U opsdash_dev"]
+            interval: 5s
+            retries: 5
 
-# volumes:
-#     db_data:
+volumes:
+    db_data:

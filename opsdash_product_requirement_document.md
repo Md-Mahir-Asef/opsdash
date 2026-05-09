@@ -2,7 +2,7 @@
 title: OpsDash Product Requirement Document (PRD)
 project_name: OpsDash
 Developed By: Md. Mahir Asef
-date: 19 Feb 2026
+date: 6 May 2026
 version: 1.0
 ---
 
@@ -57,20 +57,23 @@ OpsDash is an internal operations dashboard designed for small agencies to manag
 - [x] Load Memebrs of that organization by page in the Backend from Clerk.
 - [x] Load Members of that organization in the Frontend from Backend.
 - [x] Load Members of that organization by page in the Frontend from Backend.
+- [ ] Invite Member to Organization
+- [ ] Remove Member from Organization
+- [ ] Change Member Role
+- [ ] Allow Admin to Edit Member
 
 #### Features for later
 
-- [ ] Invite Member
 - [ ] Search Member
 - [ ] Filter Member
 - [ ] View Member
 - [ ] Filter by Role
 
-### 3.3 Project Management
+### 3.3 - [ ] Project Management
 
 #### Description
 
-A task must be from a project. A task can't live alone and Projects should have tasks but a project can exist without any tasks.
+A task must be from a project. A task can't live alone and Projects should have tasks but a project can exist without any tasks. A task can't belong to 2 projects at the same time.
 
 - CRUD operations for projects.
 - Fields: `id`, `client_id`, `title`, `description`, `status`, `start_date`, `end_date`, `priority`, `budget`, `created_at`, `updated_at`, `tasks`.
@@ -79,24 +82,61 @@ A task must be from a project. A task can't live alone and Projects should have 
 
 #### Actions
 
-- [ ] Create a Database Table for Projects.
-- [ ] Connect the DB to Prisma ORM.
-- [ ] Connect the Database with Docker and run that successfully.
+- [x] Create a Database Table for Projects.
+- [x] Create a Database Table for Tasks. (It is required to build the Projects Table.)
+- [x] Connect the DB to Prisma ORM.
+- [x] Connect the Database with Docker and run that successfully.
+- [ ] Load all the projects of that organization in the Backend.
+- [ ] Allow the Client to view only his project in the dashboard of the organization.
+- [ ] Allow the Admin to view all projects in the dashboard of the organization.
+- [ ] Allow the Admin to assign a project to a client.
+- [ ] Allow the Admin to unassign a project from a client.
+- [ ] Allow the Admin to update a project.
+- [ ] Allow the Admin to delete a project.
+- [ ] Allow the Admin and Client to view a project details.
 
-### 3.4 Task Management
+#### Features for later
+
+- [ ] Allow the Admin and Client to search for a project.
+- [ ] Allow the Admin and Client to filter for a project.
+- [ ] Allow the Admin and Client to sort for a project.
+
+### 3.4 - [ ] Task Management
+
+#### Description
+
+A task must be from a project. A task can't live alone and Projects should have tasks but a project can exist without any tasks. A task can't belong to 2 projects at the same time.
 
 - CRUD operations for tasks within projects.
 - Fields: `id`, `project_id`, `title`, `description`, `status`, `assigned_user_id`, `priority`, `due_date`, `created_at`, `updated_at`.
 - Subtasks optional in future updates.
 - Status predefined and customizable.
 
-### 3.5 Activity Logs
+#### Actions
+
+- [x] Create a Database Table for Tasks. (It is required to build the Projects Table.)
+- [ ] Connect the DB to Prisma ORM.
+- [ ] Connect the Database with Docker and run that successfully.
+- [ ] Allow the Client to view only his tasks in the dashboard of the organization.
+- [ ] Allow the Admin to view all tasks in the dashboard of the organization.
+- [ ] Allow the Admin to assign a task to a client.
+- [ ] Allow the Admin to unassign a task from a client.
+- [ ] Allow the Client to update his tasks.
+- [ ] Allow the Client to delete his tasks.
+- [ ] Allow the Admin to assign a task to a staff.
+- [ ] Allow the Admin to unassign a task from a staff.
+- [ ] Allow the Staff to update his task status.
+- [ ] Allow the Admin to update a task.
+- [ ] Allow the Admin to delete a task.
+- [ ] Allow the Admin and Client to view a project details.
+
+### 3.5 - [ ] Activity Logs (This is a feature for later)
 
 - Log all actions by users: create/update/delete clients, projects, tasks.
 - Store: `id`, `user_id`, `action`, `entity_type`, `entity_id`, `timestamp`, `metadata`.
 - Viewable by Admin; Staff may view logs for assigned projects.
 
-### 3.6 Dashboard
+### 3.6 - [ ] Dashboard
 
 - Separate dashboards for Admin, Staff, Client.
 - Cards: total clients, active projects, completed tasks, upcoming deadlines.
@@ -104,13 +144,13 @@ A task must be from a project. A task can't live alone and Projects should have 
 - KPIs calculated from real data (initially fake for testing).
 - Filters by client, status, date range.
 
-### 3.7 Reports & Exports
+### 3.7 - [ ] Reports & Exports (This is a feature for later)
 
 - Generate CSV and PDF reports.
 - Reports can be filtered by client, project, status, or date range.
 - Server-side generation recommended (Node.js).
 
-### 3.8 Search & Filtering
+### 3.8 - [ ] Search & Filtering
 
 - Table search/filter for clients, projects, tasks.
 - Filters include text, status, assigned user, date range.

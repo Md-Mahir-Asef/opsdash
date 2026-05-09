@@ -1,4 +1,6 @@
-import { Clerk } from "@clerk/clerk-sdk-node";
 import { config } from "./config";
+import { createClerkClient } from "@clerk/express";
 
-export const clerk = Clerk({ apiKey: config.CLERK_SECRET_KEY });
+export const clerk = createClerkClient({
+    secretKey: config.CLERK_SECRET_KEY,
+});

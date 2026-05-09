@@ -22,10 +22,10 @@ RUN npm install -g nodemon
 
 # Force Prisma to embed engine binaries inside node_modules
 ENV PRISMA_CLI_QUERY_ENGINE_TYPE=binary
-# ENV PRISMA_CLI_QUERY_ENGINE_BINARY=true
+ENV PRISMA_CLI_QUERY_ENGINE_BINARY=true
 
 # Generate Prisma client (so imports work)
-# RUN npx prisma generate # currently no DB
+RUN npx prisma generate
 
 # Expose port (informational)
 
