@@ -1044,6 +1044,7 @@ export namespace Prisma {
 
   export type ProjectMinAggregateOutputType = {
     id: number | null
+    org_id: string | null
     title: string | null
     description: string | null
     status: $Enums.Status | null
@@ -1058,6 +1059,7 @@ export namespace Prisma {
 
   export type ProjectMaxAggregateOutputType = {
     id: number | null
+    org_id: string | null
     title: string | null
     description: string | null
     status: $Enums.Status | null
@@ -1072,6 +1074,7 @@ export namespace Prisma {
 
   export type ProjectCountAggregateOutputType = {
     id: number
+    org_id: number
     title: number
     description: number
     status: number
@@ -1098,6 +1101,7 @@ export namespace Prisma {
 
   export type ProjectMinAggregateInputType = {
     id?: true
+    org_id?: true
     title?: true
     description?: true
     status?: true
@@ -1112,6 +1116,7 @@ export namespace Prisma {
 
   export type ProjectMaxAggregateInputType = {
     id?: true
+    org_id?: true
     title?: true
     description?: true
     status?: true
@@ -1126,6 +1131,7 @@ export namespace Prisma {
 
   export type ProjectCountAggregateInputType = {
     id?: true
+    org_id?: true
     title?: true
     description?: true
     status?: true
@@ -1227,13 +1233,14 @@ export namespace Prisma {
 
   export type ProjectGroupByOutputType = {
     id: number
+    org_id: string
     title: string
     description: string | null
     status: $Enums.Status
     client_email: string
     due_date: Date | null
     start_date: Date
-    end_date: Date
+    end_date: Date | null
     budget: bigint
     created_at: Date
     updated_at: Date
@@ -1260,6 +1267,7 @@ export namespace Prisma {
 
   export type ProjectSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    org_id?: boolean
     title?: boolean
     description?: boolean
     status?: boolean
@@ -1276,6 +1284,7 @@ export namespace Prisma {
 
   export type ProjectSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    org_id?: boolean
     title?: boolean
     description?: boolean
     status?: boolean
@@ -1290,6 +1299,7 @@ export namespace Prisma {
 
   export type ProjectSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    org_id?: boolean
     title?: boolean
     description?: boolean
     status?: boolean
@@ -1304,6 +1314,7 @@ export namespace Prisma {
 
   export type ProjectSelectScalar = {
     id?: boolean
+    org_id?: boolean
     title?: boolean
     description?: boolean
     status?: boolean
@@ -1316,7 +1327,7 @@ export namespace Prisma {
     updated_at?: boolean
   }
 
-  export type ProjectOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "status" | "client_email" | "due_date" | "start_date" | "end_date" | "budget" | "created_at" | "updated_at", ExtArgs["result"]["project"]>
+  export type ProjectOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "org_id" | "title" | "description" | "status" | "client_email" | "due_date" | "start_date" | "end_date" | "budget" | "created_at" | "updated_at", ExtArgs["result"]["project"]>
   export type ProjectInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tasks?: boolean | Project$tasksArgs<ExtArgs>
     _count?: boolean | ProjectCountOutputTypeDefaultArgs<ExtArgs>
@@ -1331,13 +1342,14 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
+      org_id: string
       title: string
       description: string | null
       status: $Enums.Status
       client_email: string
       due_date: Date | null
       start_date: Date
-      end_date: Date
+      end_date: Date | null
       budget: bigint
       created_at: Date
       updated_at: Date
@@ -1766,6 +1778,7 @@ export namespace Prisma {
    */
   interface ProjectFieldRefs {
     readonly id: FieldRef<"Project", 'Int'>
+    readonly org_id: FieldRef<"Project", 'String'>
     readonly title: FieldRef<"Project", 'String'>
     readonly description: FieldRef<"Project", 'String'>
     readonly status: FieldRef<"Project", 'Status'>
@@ -3393,6 +3406,7 @@ export namespace Prisma {
 
   export const ProjectScalarFieldEnum: {
     id: 'id',
+    org_id: 'org_id',
     title: 'title',
     description: 'description',
     status: 'status',
@@ -3559,13 +3573,14 @@ export namespace Prisma {
     OR?: ProjectWhereInput[]
     NOT?: ProjectWhereInput | ProjectWhereInput[]
     id?: IntFilter<"Project"> | number
+    org_id?: StringFilter<"Project"> | string
     title?: StringFilter<"Project"> | string
     description?: StringNullableFilter<"Project"> | string | null
     status?: EnumStatusFilter<"Project"> | $Enums.Status
     client_email?: StringFilter<"Project"> | string
     due_date?: DateTimeNullableFilter<"Project"> | Date | string | null
     start_date?: DateTimeFilter<"Project"> | Date | string
-    end_date?: DateTimeFilter<"Project"> | Date | string
+    end_date?: DateTimeNullableFilter<"Project"> | Date | string | null
     budget?: BigIntFilter<"Project"> | bigint | number
     created_at?: DateTimeFilter<"Project"> | Date | string
     updated_at?: DateTimeFilter<"Project"> | Date | string
@@ -3574,13 +3589,14 @@ export namespace Prisma {
 
   export type ProjectOrderByWithRelationInput = {
     id?: SortOrder
+    org_id?: SortOrder
     title?: SortOrder
     description?: SortOrderInput | SortOrder
     status?: SortOrder
     client_email?: SortOrder
     due_date?: SortOrderInput | SortOrder
     start_date?: SortOrder
-    end_date?: SortOrder
+    end_date?: SortOrderInput | SortOrder
     budget?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
@@ -3592,13 +3608,14 @@ export namespace Prisma {
     AND?: ProjectWhereInput | ProjectWhereInput[]
     OR?: ProjectWhereInput[]
     NOT?: ProjectWhereInput | ProjectWhereInput[]
+    org_id?: StringFilter<"Project"> | string
     title?: StringFilter<"Project"> | string
     description?: StringNullableFilter<"Project"> | string | null
     status?: EnumStatusFilter<"Project"> | $Enums.Status
     client_email?: StringFilter<"Project"> | string
     due_date?: DateTimeNullableFilter<"Project"> | Date | string | null
     start_date?: DateTimeFilter<"Project"> | Date | string
-    end_date?: DateTimeFilter<"Project"> | Date | string
+    end_date?: DateTimeNullableFilter<"Project"> | Date | string | null
     budget?: BigIntFilter<"Project"> | bigint | number
     created_at?: DateTimeFilter<"Project"> | Date | string
     updated_at?: DateTimeFilter<"Project"> | Date | string
@@ -3607,13 +3624,14 @@ export namespace Prisma {
 
   export type ProjectOrderByWithAggregationInput = {
     id?: SortOrder
+    org_id?: SortOrder
     title?: SortOrder
     description?: SortOrderInput | SortOrder
     status?: SortOrder
     client_email?: SortOrder
     due_date?: SortOrderInput | SortOrder
     start_date?: SortOrder
-    end_date?: SortOrder
+    end_date?: SortOrderInput | SortOrder
     budget?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
@@ -3629,13 +3647,14 @@ export namespace Prisma {
     OR?: ProjectScalarWhereWithAggregatesInput[]
     NOT?: ProjectScalarWhereWithAggregatesInput | ProjectScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Project"> | number
+    org_id?: StringWithAggregatesFilter<"Project"> | string
     title?: StringWithAggregatesFilter<"Project"> | string
     description?: StringNullableWithAggregatesFilter<"Project"> | string | null
     status?: EnumStatusWithAggregatesFilter<"Project"> | $Enums.Status
     client_email?: StringWithAggregatesFilter<"Project"> | string
     due_date?: DateTimeNullableWithAggregatesFilter<"Project"> | Date | string | null
     start_date?: DateTimeWithAggregatesFilter<"Project"> | Date | string
-    end_date?: DateTimeWithAggregatesFilter<"Project"> | Date | string
+    end_date?: DateTimeNullableWithAggregatesFilter<"Project"> | Date | string | null
     budget?: BigIntWithAggregatesFilter<"Project"> | bigint | number
     created_at?: DateTimeWithAggregatesFilter<"Project"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"Project"> | Date | string
@@ -3724,13 +3743,14 @@ export namespace Prisma {
   }
 
   export type ProjectCreateInput = {
+    org_id: string
     title: string
     description?: string | null
     status?: $Enums.Status
     client_email: string
     due_date?: Date | string | null
-    start_date: Date | string
-    end_date: Date | string
+    start_date?: Date | string
+    end_date?: Date | string | null
     budget: bigint | number
     created_at?: Date | string
     updated_at?: Date | string
@@ -3739,13 +3759,14 @@ export namespace Prisma {
 
   export type ProjectUncheckedCreateInput = {
     id?: number
+    org_id: string
     title: string
     description?: string | null
     status?: $Enums.Status
     client_email: string
     due_date?: Date | string | null
-    start_date: Date | string
-    end_date: Date | string
+    start_date?: Date | string
+    end_date?: Date | string | null
     budget: bigint | number
     created_at?: Date | string
     updated_at?: Date | string
@@ -3753,13 +3774,14 @@ export namespace Prisma {
   }
 
   export type ProjectUpdateInput = {
+    org_id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     client_email?: StringFieldUpdateOperationsInput | string
     due_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    end_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     budget?: BigIntFieldUpdateOperationsInput | bigint | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -3768,13 +3790,14 @@ export namespace Prisma {
 
   export type ProjectUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
+    org_id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     client_email?: StringFieldUpdateOperationsInput | string
     due_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    end_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     budget?: BigIntFieldUpdateOperationsInput | bigint | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -3783,26 +3806,28 @@ export namespace Prisma {
 
   export type ProjectCreateManyInput = {
     id?: number
+    org_id: string
     title: string
     description?: string | null
     status?: $Enums.Status
     client_email: string
     due_date?: Date | string | null
-    start_date: Date | string
-    end_date: Date | string
+    start_date?: Date | string
+    end_date?: Date | string | null
     budget: bigint | number
     created_at?: Date | string
     updated_at?: Date | string
   }
 
   export type ProjectUpdateManyMutationInput = {
+    org_id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     client_email?: StringFieldUpdateOperationsInput | string
     due_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    end_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     budget?: BigIntFieldUpdateOperationsInput | bigint | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -3810,13 +3835,14 @@ export namespace Prisma {
 
   export type ProjectUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
+    org_id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     client_email?: StringFieldUpdateOperationsInput | string
     due_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    end_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     budget?: BigIntFieldUpdateOperationsInput | bigint | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -4010,6 +4036,7 @@ export namespace Prisma {
 
   export type ProjectCountOrderByAggregateInput = {
     id?: SortOrder
+    org_id?: SortOrder
     title?: SortOrder
     description?: SortOrder
     status?: SortOrder
@@ -4029,6 +4056,7 @@ export namespace Prisma {
 
   export type ProjectMaxOrderByAggregateInput = {
     id?: SortOrder
+    org_id?: SortOrder
     title?: SortOrder
     description?: SortOrder
     status?: SortOrder
@@ -4043,6 +4071,7 @@ export namespace Prisma {
 
   export type ProjectMinOrderByAggregateInput = {
     id?: SortOrder
+    org_id?: SortOrder
     title?: SortOrder
     description?: SortOrder
     status?: SortOrder
@@ -4622,13 +4651,14 @@ export namespace Prisma {
   }
 
   export type ProjectCreateWithoutTasksInput = {
+    org_id: string
     title: string
     description?: string | null
     status?: $Enums.Status
     client_email: string
     due_date?: Date | string | null
-    start_date: Date | string
-    end_date: Date | string
+    start_date?: Date | string
+    end_date?: Date | string | null
     budget: bigint | number
     created_at?: Date | string
     updated_at?: Date | string
@@ -4636,13 +4666,14 @@ export namespace Prisma {
 
   export type ProjectUncheckedCreateWithoutTasksInput = {
     id?: number
+    org_id: string
     title: string
     description?: string | null
     status?: $Enums.Status
     client_email: string
     due_date?: Date | string | null
-    start_date: Date | string
-    end_date: Date | string
+    start_date?: Date | string
+    end_date?: Date | string | null
     budget: bigint | number
     created_at?: Date | string
     updated_at?: Date | string
@@ -4665,13 +4696,14 @@ export namespace Prisma {
   }
 
   export type ProjectUpdateWithoutTasksInput = {
+    org_id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     client_email?: StringFieldUpdateOperationsInput | string
     due_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    end_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     budget?: BigIntFieldUpdateOperationsInput | bigint | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -4679,13 +4711,14 @@ export namespace Prisma {
 
   export type ProjectUncheckedUpdateWithoutTasksInput = {
     id?: IntFieldUpdateOperationsInput | number
+    org_id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     client_email?: StringFieldUpdateOperationsInput | string
     due_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    end_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     budget?: BigIntFieldUpdateOperationsInput | bigint | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string

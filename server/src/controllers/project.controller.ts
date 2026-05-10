@@ -1,6 +1,5 @@
 import type { Request, Response } from "express";
 import { getAuth } from "@clerk/express";
-import { clerk } from "../utils/clerk";
 import logger from "../utils/logger";
 import { createProjectSchema } from "../utils/zod";
 import prisma from "../utils/prisma";
@@ -23,10 +22,21 @@ export const createProject = async (req: Request, res: Response) => {
     }
 };
 
-export const getAllProjects = async (req: Request, res: Response) => {
+export const getAllOrgProjectsByPage = async (req: Request, res: Response) => {
     try {
         const info = getAuth(req);
 
+        if (!info?.orgId) {
+            return res.sendErr("Missing orgId");
+        }
+
+        const projects = await prisma.project.findMany({
+            where: {
+                org_id: String(info.orgId),
+            },
+        });
+        
+        console.log(projects);
         logger.info(`GET All Projects for Organization ${info.orgId}`);
         res.sendApi({
             data: [],

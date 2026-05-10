@@ -10,4 +10,5 @@ export const createProjectSchema = z.object({
     start_date: z.date(),
     end_date: z.date(),
     budget: z.number(),
+    org_id: z.string(),
 });

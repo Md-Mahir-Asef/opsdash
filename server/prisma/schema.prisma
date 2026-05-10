@@ -16,6 +16,7 @@ datasource db {
 
 model Project {
   id           Int       @id @unique @default(autoincrement())
+  org_id       String
   title        String
   description  String?
   status       Status    @default(Unconfirmed)
