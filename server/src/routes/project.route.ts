@@ -3,11 +3,11 @@ import {
     getAllOrgProjectsByPage,
     createProject,
 } from "../controllers/project.controller";
-import { requireAuth } from "@clerk/express";
+import { isUser } from "../middlewares/auth.middleware";
 
 const projectRoutes = Router();
 
-projectRoutes.get("/", requireAuth(), getAllOrgProjectsByPage);
-projectRoutes.post("/", requireAuth(), createProject);
+projectRoutes.get("/", isUser, getAllOrgProjectsByPage);
+projectRoutes.post("/", isUser, createProject);
 
 export default projectRoutes;

@@ -1,7 +1,9 @@
+import { getAuth } from "@clerk/express";
 import { Request, Response } from "express";
 
-export const getHealth = (req: Request, res: Response) => {
+export const getHealth = async (req: Request, res: Response) => {
     try {
+        const authData = await getAuth(req);
         const uptime = process.uptime();
         const memoryUsage = process.memoryUsage();
         const timestamp = new Date().toISOString();
@@ -19,6 +21,7 @@ export const getHealth = (req: Request, res: Response) => {
                 rss: (memoryUsage.rss / 1024 / 1024).toFixed(2),
             },
         };
+        console.log(`\n\n ${JSON.stringify(authData)} \n\n`);
 
         res.sendApi(healthData, "Server is healthy and running", 200);
     } catch (error) {

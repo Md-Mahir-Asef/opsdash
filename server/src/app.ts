@@ -19,7 +19,11 @@ app.use(
     }),
 );
 app.use(express.json());
-app.use(clerkMiddleware());
+app.use(
+    clerkMiddleware({
+        authorizedParties: ["http://localhost:5173"],
+    }),
+);
 app.use(responseWrapper);
 app.use(requestLogger);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
