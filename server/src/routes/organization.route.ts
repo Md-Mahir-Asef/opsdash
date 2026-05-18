@@ -4,12 +4,12 @@ import {
     getOrgMembersByPage,
     getOrgMembersCount,
 } from "../controllers/organization.controller";
-import { requireAuth } from "@clerk/express";
+import { isUser } from "../middlewares/auth.middleware";
 
 const organizationRoutes = Router();
 
-organizationRoutes.get("/members", requireAuth(), getOrgMembers);
-organizationRoutes.get("/members/count", requireAuth(), getOrgMembersCount);
-organizationRoutes.get("/members/page", requireAuth(), getOrgMembersByPage);
+organizationRoutes.get("/members", isUser, getOrgMembers);
+organizationRoutes.get("/members/count", isUser, getOrgMembersCount);
+organizationRoutes.get("/members/page", isUser, getOrgMembersByPage);
 
 export default organizationRoutes;

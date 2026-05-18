@@ -1039,7 +1039,7 @@ export namespace Prisma {
 
   export type ProjectSumAggregateOutputType = {
     id: number | null
-    budget: bigint | null
+    budget: number | null
   }
 
   export type ProjectMinAggregateOutputType = {
@@ -1052,7 +1052,7 @@ export namespace Prisma {
     due_date: Date | null
     start_date: Date | null
     end_date: Date | null
-    budget: bigint | null
+    budget: number | null
     created_at: Date | null
     updated_at: Date | null
   }
@@ -1067,7 +1067,7 @@ export namespace Prisma {
     due_date: Date | null
     start_date: Date | null
     end_date: Date | null
-    budget: bigint | null
+    budget: number | null
     created_at: Date | null
     updated_at: Date | null
   }
@@ -1241,7 +1241,7 @@ export namespace Prisma {
     due_date: Date | null
     start_date: Date
     end_date: Date | null
-    budget: bigint
+    budget: number
     created_at: Date
     updated_at: Date
     _count: ProjectCountAggregateOutputType | null
@@ -1350,7 +1350,7 @@ export namespace Prisma {
       due_date: Date | null
       start_date: Date
       end_date: Date | null
-      budget: bigint
+      budget: number
       created_at: Date
       updated_at: Date
     }, ExtArgs["result"]["project"]>
@@ -1786,7 +1786,7 @@ export namespace Prisma {
     readonly due_date: FieldRef<"Project", 'DateTime'>
     readonly start_date: FieldRef<"Project", 'DateTime'>
     readonly end_date: FieldRef<"Project", 'DateTime'>
-    readonly budget: FieldRef<"Project", 'BigInt'>
+    readonly budget: FieldRef<"Project", 'Int'>
     readonly created_at: FieldRef<"Project", 'DateTime'>
     readonly updated_at: FieldRef<"Project", 'DateTime'>
   }
@@ -3524,20 +3524,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'BigInt'
-   */
-  export type BigIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BigInt'>
-    
-
-
-  /**
-   * Reference to a field of type 'BigInt[]'
-   */
-  export type ListBigIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BigInt[]'>
-    
-
-
-  /**
    * Reference to a field of type 'Priority'
    */
   export type EnumPriorityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Priority'>
@@ -3581,7 +3567,7 @@ export namespace Prisma {
     due_date?: DateTimeNullableFilter<"Project"> | Date | string | null
     start_date?: DateTimeFilter<"Project"> | Date | string
     end_date?: DateTimeNullableFilter<"Project"> | Date | string | null
-    budget?: BigIntFilter<"Project"> | bigint | number
+    budget?: IntFilter<"Project"> | number
     created_at?: DateTimeFilter<"Project"> | Date | string
     updated_at?: DateTimeFilter<"Project"> | Date | string
     tasks?: TaskListRelationFilter
@@ -3616,7 +3602,7 @@ export namespace Prisma {
     due_date?: DateTimeNullableFilter<"Project"> | Date | string | null
     start_date?: DateTimeFilter<"Project"> | Date | string
     end_date?: DateTimeNullableFilter<"Project"> | Date | string | null
-    budget?: BigIntFilter<"Project"> | bigint | number
+    budget?: IntFilter<"Project"> | number
     created_at?: DateTimeFilter<"Project"> | Date | string
     updated_at?: DateTimeFilter<"Project"> | Date | string
     tasks?: TaskListRelationFilter
@@ -3655,7 +3641,7 @@ export namespace Prisma {
     due_date?: DateTimeNullableWithAggregatesFilter<"Project"> | Date | string | null
     start_date?: DateTimeWithAggregatesFilter<"Project"> | Date | string
     end_date?: DateTimeNullableWithAggregatesFilter<"Project"> | Date | string | null
-    budget?: BigIntWithAggregatesFilter<"Project"> | bigint | number
+    budget?: IntWithAggregatesFilter<"Project"> | number
     created_at?: DateTimeWithAggregatesFilter<"Project"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"Project"> | Date | string
   }
@@ -3751,7 +3737,7 @@ export namespace Prisma {
     due_date?: Date | string | null
     start_date?: Date | string
     end_date?: Date | string | null
-    budget: bigint | number
+    budget: number
     created_at?: Date | string
     updated_at?: Date | string
     tasks?: TaskCreateNestedManyWithoutProjectInput
@@ -3767,7 +3753,7 @@ export namespace Prisma {
     due_date?: Date | string | null
     start_date?: Date | string
     end_date?: Date | string | null
-    budget: bigint | number
+    budget: number
     created_at?: Date | string
     updated_at?: Date | string
     tasks?: TaskUncheckedCreateNestedManyWithoutProjectInput
@@ -3782,7 +3768,7 @@ export namespace Prisma {
     due_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    budget?: BigIntFieldUpdateOperationsInput | bigint | number
+    budget?: IntFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     tasks?: TaskUpdateManyWithoutProjectNestedInput
@@ -3798,7 +3784,7 @@ export namespace Prisma {
     due_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    budget?: BigIntFieldUpdateOperationsInput | bigint | number
+    budget?: IntFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     tasks?: TaskUncheckedUpdateManyWithoutProjectNestedInput
@@ -3814,7 +3800,7 @@ export namespace Prisma {
     due_date?: Date | string | null
     start_date?: Date | string
     end_date?: Date | string | null
-    budget: bigint | number
+    budget: number
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -3828,7 +3814,7 @@ export namespace Prisma {
     due_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    budget?: BigIntFieldUpdateOperationsInput | bigint | number
+    budget?: IntFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -3843,7 +3829,7 @@ export namespace Prisma {
     due_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    budget?: BigIntFieldUpdateOperationsInput | bigint | number
+    budget?: IntFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -4008,17 +3994,6 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
-  export type BigIntFilter<$PrismaModel = never> = {
-    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
-    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
-    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    not?: NestedBigIntFilter<$PrismaModel> | bigint | number
-  }
-
   export type TaskListRelationFilter = {
     every?: TaskWhereInput
     some?: TaskWhereInput
@@ -4179,22 +4154,6 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type BigIntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
-    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
-    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    not?: NestedBigIntWithAggregatesFilter<$PrismaModel> | bigint | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedBigIntFilter<$PrismaModel>
-    _min?: NestedBigIntFilter<$PrismaModel>
-    _max?: NestedBigIntFilter<$PrismaModel>
-  }
-
   export type EnumPriorityFilter<$PrismaModel = never> = {
     equals?: $Enums.Priority | EnumPriorityFieldRefInput<$PrismaModel>
     in?: $Enums.Priority[] | ListEnumPriorityFieldRefInput<$PrismaModel>
@@ -4300,12 +4259,12 @@ export namespace Prisma {
     set?: Date | string
   }
 
-  export type BigIntFieldUpdateOperationsInput = {
-    set?: bigint | number
-    increment?: bigint | number
-    decrement?: bigint | number
-    multiply?: bigint | number
-    divide?: bigint | number
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type TaskUpdateManyWithoutProjectNestedInput = {
@@ -4320,14 +4279,6 @@ export namespace Prisma {
     update?: TaskUpdateWithWhereUniqueWithoutProjectInput | TaskUpdateWithWhereUniqueWithoutProjectInput[]
     updateMany?: TaskUpdateManyWithWhereWithoutProjectInput | TaskUpdateManyWithWhereWithoutProjectInput[]
     deleteMany?: TaskScalarWhereInput | TaskScalarWhereInput[]
-  }
-
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type TaskUncheckedUpdateManyWithoutProjectNestedInput = {
@@ -4428,17 +4379,6 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
-  }
-
-  export type NestedBigIntFilter<$PrismaModel = never> = {
-    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
-    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
-    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    not?: NestedBigIntFilter<$PrismaModel> | bigint | number
   }
 
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
@@ -4551,22 +4491,6 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type NestedBigIntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
-    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
-    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    not?: NestedBigIntWithAggregatesFilter<$PrismaModel> | bigint | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedBigIntFilter<$PrismaModel>
-    _min?: NestedBigIntFilter<$PrismaModel>
-    _max?: NestedBigIntFilter<$PrismaModel>
-  }
-
   export type NestedEnumPriorityFilter<$PrismaModel = never> = {
     equals?: $Enums.Priority | EnumPriorityFieldRefInput<$PrismaModel>
     in?: $Enums.Priority[] | ListEnumPriorityFieldRefInput<$PrismaModel>
@@ -4659,7 +4583,7 @@ export namespace Prisma {
     due_date?: Date | string | null
     start_date?: Date | string
     end_date?: Date | string | null
-    budget: bigint | number
+    budget: number
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -4674,7 +4598,7 @@ export namespace Prisma {
     due_date?: Date | string | null
     start_date?: Date | string
     end_date?: Date | string | null
-    budget: bigint | number
+    budget: number
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -4704,7 +4628,7 @@ export namespace Prisma {
     due_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    budget?: BigIntFieldUpdateOperationsInput | bigint | number
+    budget?: IntFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -4719,7 +4643,7 @@ export namespace Prisma {
     due_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    budget?: BigIntFieldUpdateOperationsInput | bigint | number
+    budget?: IntFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }

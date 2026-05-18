@@ -1,12 +1,12 @@
 import type { Request, Response } from "express";
-import { getAuth } from "@clerk/express";
 import { clerk } from "../utils/clerk";
 import logger from "../utils/logger";
 import type { OrganizationMembership } from "@clerk/express";
+import { getAuthContext } from "../utils/auth";
 
 export const getOrgMembers = async (req: Request, res: Response) => {
     try {
-        const info = getAuth(req);
+        const info = await getAuthContext(req);
         const membershipsResponse =
             await clerk.organizations.getOrganizationMembershipList({
                 organizationId: String(info.orgId),
@@ -22,7 +22,7 @@ export const getOrgMembers = async (req: Request, res: Response) => {
 
 export const getOrgMembersByPage = async (req: Request, res: Response) => {
     try {
-        const info = getAuth(req);
+        const info = await getAuthContext(req);
         const page = parseInt(req.query["page"] as string) || 1;
         const limit = 5;
 
@@ -54,7 +54,7 @@ export const getOrgMembersByPage = async (req: Request, res: Response) => {
 
 export const getOrgMembersCount = async (req: Request, res: Response) => {
     try {
-        const info = getAuth(req);
+        const info = await getAuthContext(req);
 
         const orgResponse =
             await clerk.organizations.getOrganizationMembershipList({

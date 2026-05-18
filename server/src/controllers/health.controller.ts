@@ -1,9 +1,9 @@
-import { getAuth } from "@clerk/express";
 import { Request, Response } from "express";
+import { getAuthContext } from "../utils/auth";
 
 export const getHealth = async (req: Request, res: Response) => {
     try {
-        const authData = await getAuth(req);
+        const authData = await getAuthContext(req);
         const uptime = process.uptime();
         const memoryUsage = process.memoryUsage();
         const timestamp = new Date().toISOString();

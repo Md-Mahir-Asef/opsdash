@@ -24,7 +24,7 @@ model Project {
   due_date     DateTime?
   start_date   DateTime  @default(now())
   end_date     DateTime?
-  budget       BigInt
+  budget       Int
   created_at   DateTime  @default(now())
   updated_at   DateTime  @updatedAt
   tasks        Task[]
