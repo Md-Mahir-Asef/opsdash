@@ -140,3 +140,23 @@ export const updateProject = async (req: Request, res: Response) => {
         res.sendErr(err);
     }
 };
+
+export const deleteProject = async (req: Request, res: Response) => {
+    try {
+        const info = await getAuthContext(req);
+        const id = parseInt(req.params["id"] as string);
+        if (!info?.orgId) return res.sendErr("Missing orgId");
+
+        const existing = await prisma.project.findUnique({ where: { id } });
+        if (!existing || String(existing.org_id) !== String(info.orgId)) {
+            return res.sendErr("Project not found");
+        }
+
+        await prisma.project.delete({ where: { id } });
+
+        res.sendApi({ data: { id } }, "Project deleted successfully");
+    } catch (err) {
+        logger.error(`Can't DELETE Project`, err);
+        res.sendErr(err);
+    }
+};

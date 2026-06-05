@@ -53,8 +53,8 @@ OpsDash is an internal operations dashboard designed for small agencies to manag
 
 #### Actions
 
-- [x] Load Memebrs of that organization in the Backend from Clerk.
-- [x] Load Memebrs of that organization by page in the Backend from Clerk.
+- [x] Load Members of that organization in the Backend from Clerk.
+- [x] Load Members of that organization by page in the Backend from Clerk.
 - [x] Load Members of that organization in the Frontend from Backend.
 - [x] Load Members of that organization by page in the Frontend from Backend.
 - [ ] Invite Member to Organization
@@ -86,10 +86,10 @@ A task must be from a project. A task can't live alone and Projects should have 
 - [x] Create a Database Table for Tasks. (It is required to build the Projects Table.)
 - [x] Connect the DB to Prisma ORM.
 - [x] Connect the Database with Docker and run that successfully.
-- [x] Build CreateProject Contoller and route.
-- [x] Build GetProject Contoller and route.
-- [ ] Build UpdateProject Contoller and route.
-- [ ] Build DeleteProject Contoller and route.
+- [x] Build CreateProject Controller and route.
+- [x] Build GetProject Controller and route.
+- [ ] Build UpdateProject Controller and route.
+- [x] Build DeleteProject Controller and route.
 - [x] Load all the projects of that organization in the Backend.
 - [ ] Allow the Client to view only his project in the dashboard of the organization.
 - [x] Allow the Admin to view all projects in the dashboard of the organization.
