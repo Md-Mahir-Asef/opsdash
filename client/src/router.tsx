@@ -7,14 +7,17 @@ import SignInPage from "./pages/SignInPage.tsx";
 import SignUpPage from "./pages/SignUpPage.tsx";
 import { NotFoundPage } from "./pages/NotFoundPage";
 import MainLayout from "./components/layout/MainLayout";
-import DashboardPage from "./pages/auth/dashboard/DashboardPage.tsx";
-import ProjectsPage from "./pages/auth/dashboard/ProjectsPage.tsx";
-import TasksPage from "./pages/auth/dashboard/TasksPage.tsx";
-import SettingsPage from "./pages/auth/dashboard/SettingsPage.tsx";
-import ReportsPage from "./pages/auth/dashboard/ReportsPage.tsx";
+import DashboardPage from "./pages/auth/DashboardPage.tsx";
+import ProjectsPage from "./pages/auth/ProjectsPage.tsx";
+import CreateProjectPage from "./pages/auth/CreateProjectPage";
+import ProjectDetailPage from "./pages/auth/ProjectDetailPage";
+import EditProjectPage from "./pages/auth/EditProjectPage";
+import TasksPage from "./pages/auth/TasksPage.tsx";
+import SettingsPage from "./pages/auth/SettingsPage.tsx";
+import ReportsPage from "./pages/auth/ReportsPage.tsx";
 import { ProtectedRoute } from "./components/auth/ProtectedRoute.tsx";
 import MembersPage from "./pages/auth/MembersPage.tsx";
-import OrganizationsPage from "./pages/auth/OrganizationsPage";
+import OrganizationsPage from "./pages/auth/OrganizationsPage.tsx";
 
 // Layout component that wraps children with ClerkProvider
 const ClerkLayout = ({ children }: { children: React.ReactNode }) => (
@@ -68,7 +71,12 @@ export const router = createBrowserRouter([
             },
             {
                 path: "projects",
-                element: <ProjectsPage />,
+                children: [
+                    { index: true, element: <ProjectsPage /> },
+                    { path: "new", element: <CreateProjectPage /> },
+                    { path: ":id", element: <ProjectDetailPage /> },
+                    { path: ":id/edit", element: <EditProjectPage /> },
+                ],
             },
             {
                 path: "tasks",

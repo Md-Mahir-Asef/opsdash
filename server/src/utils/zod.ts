@@ -8,6 +8,6 @@ export const createProjectSchema = z.object({
     client_email: z.string().email(),
     due_date: z.coerce.date({ error: "Due date is required" }),
     start_date: z.coerce.date({ error: "Start date is required" }),
-    end_date: z.coerce.date({ error: "End date is required" }),
+    end_date: z.coerce.date({ error: "End date is required" }).optional(),
     budget: z.coerce.number({ error: "Budget must be a number." }),
 });

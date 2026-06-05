@@ -139,6 +139,7 @@ export default function MembersPage() {
             {loading ? (
                 <div className="bg-dark-100 border border-dark-300 rounded-lg p-12">
                     <div className="flex flex-col items-center justify-center">
+                        {/* Loading Animation */}
                         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mb-4"></div>
                         <p className="text-dark-600 text-lg">
                             Loading members...
