@@ -2,6 +2,7 @@ import { FolderKanban, Plus, Search, Filter, Trash2 } from "lucide-react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Pagination } from "../../components/common/Pagination";
+import { Button } from "../../components/common/Button";
 import { config } from "../../utils/config";
 import { useNavigate } from "react-router-dom";
 
@@ -46,7 +47,9 @@ export default function ProjectsPage() {
     const [loading, setLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
-    const [deletingProjectId, setDeletingProjectId] = useState<number | null>(null);
+    const [deletingProjectId, setDeletingProjectId] = useState<number | null>(
+        null,
+    );
     const serverDefaultLimit = 10;
     const navigate = useNavigate();
 
@@ -62,7 +65,9 @@ export default function ProjectsPage() {
                 `${config.VITE_SERVER_DEVELOPMENT_BASE_URL}/project/${projectId}`,
                 { withCredentials: true },
             );
-            setProjects((prev) => prev.filter((project) => project.id !== projectId));
+            setProjects((prev) =>
+                prev.filter((project) => project.id !== projectId),
+            );
         } catch (error) {
             console.error("Error deleting project:", error);
         } finally {
@@ -183,7 +188,7 @@ export default function ProjectsPage() {
                                 <span>Due: {formatDate(project.due_date)}</span>
                                 <span>{project._count?.tasks ?? 0} tasks</span>
                             </div>
-                            <div className="mt-4 flex items-center justify-between gap-4">
+                            <div className="mt-4 flex items-center justify-between gap-3">
                                 <div className="min-w-0">
                                     <div className="flex items-center justify-between mb-1">
                                         <span className="text-sm text-dark-600">
@@ -194,18 +199,38 @@ export default function ProjectsPage() {
                                         </span>
                                     </div>
                                     <div className="text-sm text-dark-500">
-                                        Budget: ${project.budget.toLocaleString()}
+                                        Budget: $
+                                        {project.budget.toLocaleString()}
                                     </div>
                                 </div>
-                                <button
-                                    type="button"
-                                    onClick={() => handleDeleteProject(project.id)}
-                                    disabled={deletingProjectId === project.id}
-                                    className="inline-flex items-center gap-2 px-3 py-2 text-sm font-medium text-red-700 bg-red-100 border border-red-200 rounded-lg hover:bg-red-200 disabled:opacity-50"
-                                >
-                                    <Trash2 className="w-4 h-4" />
-                                    Delete
-                                </button>
+                                <div className="flex flex-wrap items-center gap-2">
+                                    <Button
+                                        type="button"
+                                        variant="secondary"
+                                        size="sm"
+                                        className="min-w-[96px]"
+                                        onClick={() =>
+                                            navigate(
+                                                `/dashboard/projects/${project.id}/edit`,
+                                            )
+                                        }
+                                    >
+                                        Update
+                                    </Button>
+                                    <button
+                                        type="button"
+                                        onClick={() =>
+                                            handleDeleteProject(project.id)
+                                        }
+                                        disabled={
+                                            deletingProjectId === project.id
+                                        }
+                                        className="inline-flex items-center gap-2 px-3 py-2 text-sm font-medium text-red-700 bg-red-100 border border-red-200 rounded-lg hover:bg-red-200 disabled:opacity-50"
+                                    >
+                                        <Trash2 className="w-4 h-4" />
+                                        Delete
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     ))

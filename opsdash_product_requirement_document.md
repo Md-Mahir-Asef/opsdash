@@ -88,7 +88,7 @@ A task must be from a project. A task can't live alone and Projects should have 
 - [x] Connect the Database with Docker and run that successfully.
 - [x] Build CreateProject Controller and route.
 - [x] Build GetProject Controller and route.
-- [ ] Build UpdateProject Controller and route.
+- [x] Build UpdateProject Controller and route.
 - [x] Build DeleteProject Controller and route.
 - [x] Load all the projects of that organization in the Backend.
 - [ ] Allow the Client to view only his project in the dashboard of the organization.
@@ -98,6 +98,7 @@ A task must be from a project. A task can't live alone and Projects should have 
 - [ ] Allow the Admin to update a project.
 - [ ] Allow the Admin to delete a project.
 - [ ] Allow the Admin and Client to view a project details.
+- [ ] Make a Dropdown menu in the Create or Update Project Page for client selection.
 
 #### Features for later
 

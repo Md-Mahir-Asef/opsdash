@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Button } from "../common/Button";
 import { createProjectSchema } from "../../utils/validation";
@@ -50,6 +50,24 @@ export const ProjectForm: React.FC<Props> = ({
 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
+    const [clientEmails, setClientEmails] = useState<string[]>([]);
+
+    useEffect(() => {
+        const loadClientEmails = async () => {
+            try {
+                const response = await axios.get(
+                    `${config.VITE_SERVER_DEVELOPMENT_BASE_URL}/organization/client-emails`,
+                    { withCredentials: true },
+                );
+                const emails = response.data?.data?.clientEmails || [];
+                setClientEmails(emails);
+            } catch (error) {
+                console.error("Error loading client emails:", error);
+            }
+        };
+
+        loadClientEmails();
+    }, []);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -137,12 +155,18 @@ export const ProjectForm: React.FC<Props> = ({
                     <label className="block text-sm text-dark-600 mb-1">
                         Client Email
                     </label>
-                    <input
+                    <select
                         value={clientEmail}
                         onChange={(e) => setClientEmail(e.target.value)}
                         className="w-full px-3 py-2 bg-dark-100 border border-dark-300 rounded-lg focus:outline-none"
-                        type="email"
-                    />
+                    >
+                        <option value="">Select a client email</option>
+                        {clientEmails.map((email) => (
+                            <option key={email} value={email}>
+                                {email}
+                            </option>
+                        ))}
+                    </select>
                 </div>
                 <div>
                     <label className="block text-sm text-dark-600 mb-1">

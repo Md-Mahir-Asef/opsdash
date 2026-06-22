@@ -22,7 +22,6 @@ export const getAuthContext = (req: Request) => {
         );
         return mockAuthContext;
     }
-    logger.info(`Actual Auth Context: ${JSON.stringify(auth)}`);
     return {
         userId: auth.userId,
         sessionId: auth.sessionId,

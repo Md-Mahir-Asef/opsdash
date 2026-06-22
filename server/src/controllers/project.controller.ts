@@ -4,6 +4,7 @@ import { createProjectSchema } from "../utils/zod";
 import prisma from "../utils/prisma";
 import z from "zod";
 import { getAuthContext } from "../utils/auth";
+import { getClientEmailsInAnOrg } from "../utils/orgInfo";
 
 export const createProject = async (req: Request, res: Response) => {
     try {
@@ -11,6 +12,20 @@ export const createProject = async (req: Request, res: Response) => {
         const info = await getAuthContext(req);
         logger.info(`Body > Data: ${JSON.stringify(req.body.data)}`);
         const projectData = createProjectSchema.parse(req.body.data);
+
+        // Verify that the client email exists in the organization
+        const validClientEmails = await getClientEmailsInAnOrg(
+            String(info.orgId),
+        );
+        if (!validClientEmails.includes(projectData.client_email)) {
+            logger.warn(
+                `Client email ${projectData.client_email} not found in organization ${info.orgId}`,
+            );
+            return res.sendErr(
+                `Client email ${projectData.client_email} does not exist in your organization`,
+            );
+        }
+
         const newProject = await prisma.project.create({
             data: { ...projectData, org_id: String(info.orgId) },
         });
@@ -119,6 +134,21 @@ export const updateProject = async (req: Request, res: Response) => {
 
         // allow partial updates
         const updateData = createProjectSchema.partial().parse(req.body.data);
+
+        // If client_email is being updated, verify it exists in the organization
+        if (updateData.client_email) {
+            const validClientEmails = await getClientEmailsInAnOrg(
+                String(info.orgId),
+            );
+            if (!validClientEmails.includes(updateData.client_email)) {
+                logger.warn(
+                    `Client email ${updateData.client_email} not found in organization ${info.orgId}`,
+                );
+                return res.sendErr(
+                    `Client email ${updateData.client_email} does not exist in your organization`,
+                );
+            }
+        }
 
         const existing = await prisma.project.findUnique({ where: { id } });
         if (!existing || String(existing.org_id) !== String(info.orgId)) {

@@ -18,7 +18,7 @@ export const isUser = (req: Request, res: Response, next: NextFunction) => {
             logger.info("Blocked unauthorized access from auth.middleware.ts");
             throw new Error(`\n Unauthorized \n Token: ${auth}`);
         }
-        logger.info("User authenticated", auth.userId);
+        logger.info(`User authenticated with ID: ${auth.userId}`);
         next();
     } catch (err) {
         logger.error("Error in auth middleware", err);
