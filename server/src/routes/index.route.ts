@@ -2,6 +2,7 @@ import { Router } from "express";
 import organizationRoutes from "./organization.route";
 import { getHealth, ping } from "../controllers/health.controller";
 import projectRoutes from "./project.route";
+import authRoutes from "./auth.route";
 
 const routes = Router();
 
@@ -35,5 +36,6 @@ routes.get("/health/ping", ping);
 
 routes.use("/organization", organizationRoutes);
 routes.use("/project", projectRoutes);
+routes.use("/auth", authRoutes);
 
 export default routes;

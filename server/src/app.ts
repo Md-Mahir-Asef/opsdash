@@ -21,7 +21,7 @@ app.use(
 app.use(express.json());
 app.use(
     clerkMiddleware({
-        authorizedParties: ["http://localhost:5173"],
+        authorizedParties: ["http://localhost:7273"],
     }),
 );
 app.use(responseWrapper);

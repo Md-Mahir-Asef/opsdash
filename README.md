@@ -61,7 +61,7 @@ cd frontend
 npm run dev
 ```
 
-6. Open the app in your browser: `http://localhost:5173`
+6. Open the app in your browser: `http://localhost:7273`
 
 ---
 

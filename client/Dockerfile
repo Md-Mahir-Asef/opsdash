@@ -11,4 +11,4 @@ RUN npm install
 COPY . .
 
 # Expose Vite dev server port
-EXPOSE 5173
+EXPOSE 7273

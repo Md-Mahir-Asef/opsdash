@@ -6,10 +6,17 @@ import type { CreateProjectInput } from "../../utils/validation";
 import { z } from "zod";
 import { config } from "../../utils/config";
 
+type RoleOption = "org:admin" | "org:client";
+
 interface Props {
     mode?: "create" | "edit";
-    initialData?: Partial<CreateProjectInput> & { id?: number };
+    initialData?: Partial<CreateProjectInput> & {
+        id?: number;
+        role?: RoleOption;
+    };
     projectId?: number;
+    role: RoleOption;
+    email?: string;
     onSuccess?: (project: any) => void;
 }
 
@@ -17,18 +24,22 @@ export const ProjectForm: React.FC<Props> = ({
     mode = "create",
     initialData = {},
     projectId,
+    role,
+    email,
     onSuccess,
 }) => {
+    const [memberEmail, setMemberEmail] = useState(email ?? "");
+
     const [title, setTitle] = useState(initialData.title ?? "");
+
     const [description, setDescription] = useState(
         initialData.description ?? "",
     );
+
     const [status, setStatus] = useState(
         (initialData.status as string) ?? "Unconfirmed",
     );
-    const [clientEmail, setClientEmail] = useState(
-        initialData.client_email ?? "",
-    );
+
     const [startDate, setStartDate] = useState<string | undefined>(
         initialData.start_date
             ? new Date(initialData.start_date).toISOString().slice(0, 10)
@@ -70,6 +81,8 @@ export const ProjectForm: React.FC<Props> = ({
     }, []);
 
     const handleSubmit = async (e: React.FormEvent) => {
+        const clientEmail =
+            role === "org:client" && email !== "" ? email : memberEmail;
         e.preventDefault();
         setError(null);
         const payload = {
@@ -153,23 +166,6 @@ export const ProjectForm: React.FC<Props> = ({
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                     <label className="block text-sm text-dark-600 mb-1">
-                        Client Email
-                    </label>
-                    <select
-                        value={clientEmail}
-                        onChange={(e) => setClientEmail(e.target.value)}
-                        className="w-full px-3 py-2 bg-dark-100 border border-dark-300 rounded-lg focus:outline-none"
-                    >
-                        <option value="">Select a client email</option>
-                        {clientEmails.map((email) => (
-                            <option key={email} value={email}>
-                                {email}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-                <div>
-                    <label className="block text-sm text-dark-600 mb-1">
                         Status
                     </label>
                     <select
@@ -183,6 +179,56 @@ export const ProjectForm: React.FC<Props> = ({
                         <option value="Done">Done</option>
                     </select>
                 </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {role === "org:client" ? (
+                    <div>
+                        <label className="block text-sm text-dark-600 mb-1">
+                            Assign Client
+                        </label>
+                        <div className="w-full px-3 py-2 bg-gray-100 border border-gray-300 rounded-lg text-gray-700 cursor-not-allowed">
+                            {email}
+                        </div>
+                    </div>
+                ) : role === "org:admin" ? (
+                    <div>
+                        <label className="block text-sm text-dark-600 mb-1">
+                            Assign Client
+                        </label>
+                        <select
+                            value={memberEmail}
+                            onChange={(e) => setMemberEmail(e.target.value)}
+                            className="w-full px-3 py-2 bg-dark-100 border border-dark-300 rounded-lg focus:outline-none"
+                        >
+                            <option value="">Select a client email</option>
+                            {Array.from(
+                                new Set(
+                                    [...clientEmails, memberEmail].filter(
+                                        Boolean,
+                                    ),
+                                ),
+                            ).map((email) => (
+                                <option key={email} value={email}>
+                                    {email}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                ) : (
+                    <div>
+                        <label className="block text-sm text-dark-600 mb-1">
+                            Client Email
+                        </label>
+                        <input
+                            type="email"
+                            value={memberEmail}
+                            onChange={(e) => setMemberEmail(e.target.value)}
+                            placeholder="Enter client email"
+                            className="w-full px-3 py-2 bg-dark-100 border border-dark-300 rounded-lg focus:outline-none"
+                        />
+                    </div>
+                )}
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

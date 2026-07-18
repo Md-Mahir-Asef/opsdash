@@ -13,6 +13,7 @@ export const getOrgMembers = async (req: Request, res: Response) => {
                 organizationId: String(info.orgId),
             });
         const memberships: OrganizationMembership[] = membershipsResponse.data;
+
         logger.info(`GET Membership Details for Organization ${info.orgId}`);
         res.sendApi(memberships);
     } catch (err) {
@@ -34,7 +35,7 @@ export const getOrgMembersByPage = async (req: Request, res: Response) => {
                 limit: limit,
             });
         const memberships: OrganizationMembership[] = membershipsResponse.data;
-
+        // console.log("Memberships:", memberships);
         logger.info(
             `GET Page ${page} of Membership Details for Organization ${info.orgId}`,
         );
@@ -104,3 +105,4 @@ export const getOrgClientEmails = async (req: Request, res: Response) => {
         res.sendErr(err);
     }
 };
+
