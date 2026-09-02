@@ -93,10 +93,10 @@ A task must be from a project. A task can't live alone and Projects should have 
 - [x] Load all the projects of that organization in the Backend.
 - [ ] Allow the Client to view only his project in the dashboard of the organization.
 - [x] Allow the Admin to view all projects in the dashboard of the organization.
-- [ ] Allow the Admin to assign a project to a client.
+- [x] Allow the Admin to assign a project to a client.
 - [ ] Allow the Admin to unassign a project from a client.
-- [ ] Allow the Admin to update a project.
-- [ ] Allow the Admin to delete a project.
+- [x] Allow the Admin to update a project.
+- [x] Allow the Admin to delete a project.
 - [ ] Allow the Admin and Client to view a project details.
 - [ ] Make a Dropdown menu in the Create or Update Project Page for client selection.
 

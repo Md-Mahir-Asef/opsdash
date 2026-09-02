@@ -166,6 +166,9 @@ export default function ProjectsPage() {
                         <div
                             key={project.id}
                             className="bg-dark-100 border border-dark-300 rounded-lg p-6 hover:shadow-lg transition-shadow"
+                            onClick={() =>
+                                navigate(`/dashboard/projects/${project.id}`)
+                            }
                         >
                             <div className="flex items-center justify-between mb-4">
                                 <FolderKanban className="w-8 h-8 text-primary-600" />
