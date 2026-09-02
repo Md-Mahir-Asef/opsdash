@@ -69,7 +69,7 @@ OpsDash is an internal operations dashboard designed for small agencies to manag
 - [ ] View Member
 - [ ] Filter by Role
 
-### 3.3 - [ ] Project Management
+### 3.3 - [x] Project Management
 
 #### Description
 
@@ -97,8 +97,8 @@ A task must be from a project. A task can't live alone and Projects should have 
 - [ ] Allow the Admin to unassign a project from a client.
 - [x] Allow the Admin to update a project.
 - [x] Allow the Admin to delete a project.
-- [ ] Allow the Admin and Client to view a project details.
-- [ ] Make a Dropdown menu in the Create or Update Project Page for client selection.
+- [x] Allow the Admin and Client to view a project details.
+- [x] Make a Dropdown menu in the Create or Update Project Page for client selection.
 
 #### Features for later
 
@@ -120,8 +120,9 @@ A task must be from a project. A task can't live alone and Projects should have 
 #### Actions
 
 - [x] Create a Database Table for Tasks. (It is required to build the Projects Table.)
-- [ ] Connect the DB to Prisma ORM.
-- [ ] Connect the Database with Docker and run that successfully.
+- [x] Connect the DB to Prisma ORM.
+- [x] Connect the Database with Docker and run that successfully.
+- [ ] Allow the Admin and the Client to create tasks.
 - [ ] Allow the Client to view only his tasks in the dashboard of the organization.
 - [ ] Allow the Admin to view all tasks in the dashboard of the organization.
 - [ ] Allow the Admin to assign a task to a client.

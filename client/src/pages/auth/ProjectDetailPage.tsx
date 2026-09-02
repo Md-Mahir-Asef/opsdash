@@ -133,7 +133,10 @@ export default function ProjectDetailPage() {
                         <div className="h-6 w-36 bg-dark-200 rounded animate-pulse mb-6" />
                         <div className="space-y-4">
                             {[1, 2, 3].map((i) => (
-                                <div key={i} className="h-4 w-36 bg-dark-200 rounded animate-pulse" />
+                                <div
+                                    key={i}
+                                    className="h-4 w-36 bg-dark-200 rounded animate-pulse"
+                                />
                             ))}
                         </div>
                     </div>
@@ -189,7 +192,7 @@ export default function ProjectDetailPage() {
                         {project.description || "No description provided."}
                     </p>
                 </div>
-                <div className="flex space-x-2">
+                <div className="flex space-x-2 relative top-0 justify-start items-start">
                     <Button
                         variant="secondary"
                         onClick={() => navigate("/dashboard/projects")}
@@ -216,9 +219,7 @@ export default function ProjectDetailPage() {
                         <span className="text-sm text-dark-500">Budget</span>
                     </div>
                     <div className="text-2xl font-bold text-dark-900">
-                        $
-                        {project.budget?.toLocaleString?.() ??
-                            project.budget}
+                        ${project.budget?.toLocaleString?.() ?? project.budget}
                     </div>
                 </div>
 
@@ -377,9 +378,7 @@ export default function ProjectDetailPage() {
                         <div className="p-6 space-y-3">
                             <button
                                 onClick={() =>
-                                    navigate(
-                                        `/dashboard/projects/${id}/edit`,
-                                    )
+                                    navigate(`/dashboard/projects/${id}/edit`)
                                 }
                                 className="w-full flex items-center space-x-3 px-4 py-3 text-sm text-dark-900 bg-dark-200 hover:bg-dark-300 rounded-lg transition-colors"
                             >
@@ -388,9 +387,7 @@ export default function ProjectDetailPage() {
                             </button>
                             <button
                                 onClick={() =>
-                                    navigate(
-                                        `/dashboard/projects/${id}/tasks`,
-                                    )
+                                    navigate(`/dashboard/projects/${id}/tasks`)
                                 }
                                 className="w-full flex items-center space-x-3 px-4 py-3 text-sm text-dark-900 bg-dark-200 hover:bg-dark-300 rounded-lg transition-colors"
                             >
@@ -398,9 +395,7 @@ export default function ProjectDetailPage() {
                                 <span>View Tasks</span>
                             </button>
                             <button
-                                onClick={() =>
-                                    navigate("/dashboard/projects")
-                                }
+                                onClick={() => navigate("/dashboard/projects")}
                                 className="w-full flex items-center space-x-3 px-4 py-3 text-sm text-dark-900 bg-dark-200 hover:bg-dark-300 rounded-lg transition-colors"
                             >
                                 <FolderKanban className="w-4 h-4 text-primary-600" />
