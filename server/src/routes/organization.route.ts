@@ -4,6 +4,7 @@ import {
     getOrgMembersByPage,
     getOrgMembersCount,
     getOrgClientEmails,
+    getOrgStaffEmails,
 } from "../controllers/organization.controller";
 import { isUser } from "../middlewares/auth.middleware";
 
@@ -13,5 +14,6 @@ organizationRoutes.get("/members", isUser, getOrgMembers);
 organizationRoutes.get("/members/count", isUser, getOrgMembersCount);
 organizationRoutes.get("/members/page", isUser, getOrgMembersByPage);
 organizationRoutes.get("/client-emails", isUser, getOrgClientEmails);
+organizationRoutes.get("/staff-emails", isUser, getOrgStaffEmails);
 
 export default organizationRoutes;

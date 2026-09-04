@@ -20,3 +20,23 @@ export const getClientEmailsInAnOrg = async (orgId: string) => {
         throw err;
     }
 };
+
+export const getStaffEmailsInAnOrg = async (orgId: string) => {
+    try {
+        const membershipsResponse =
+            await clerk.organizations.getOrganizationMembershipList({
+                organizationId: String(orgId),
+            });
+        const memberships = Array.from(membershipsResponse.data);
+        const staffs = [];
+        for (const membership of memberships) {
+            if (membership.role === "org:staff") {
+                staffs.push(membership.publicUserData?.identifier);
+            }
+        }
+        return staffs;
+    } catch (err) {
+        logger.error(`Can't GET Staffs for Organization ${orgId}.`, err);
+        throw err;
+    }
+};

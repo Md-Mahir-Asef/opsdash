@@ -3,7 +3,10 @@ import { clerk } from "../utils/clerk";
 import logger from "../utils/logger";
 import type { OrganizationMembership } from "@clerk/express";
 import { getAuthContext } from "../utils/auth";
-import { getClientEmailsInAnOrg } from "../utils/orgInfo";
+import {
+    getClientEmailsInAnOrg,
+    getStaffEmailsInAnOrg,
+} from "../utils/orgInfo";
 
 export const getOrgMembers = async (req: Request, res: Response) => {
     try {
@@ -102,6 +105,20 @@ export const getOrgClientEmails = async (req: Request, res: Response) => {
         });
     } catch (err) {
         logger.error(`Can't GET Client Emails for Organization.`, err);
+        res.sendErr(err);
+    }
+};
+
+export const getOrgStaffEmails = async (req: Request, res: Response) => {
+    try {
+        const info = await getAuthContext(req);
+        const staffEmails = await getStaffEmailsInAnOrg(String(info.orgId));
+        logger.info(`GET Staff Emails for Organization ${info.orgId}`);
+        res.sendApi({
+            staffEmails: staffEmails,
+        });
+    } catch (err) {
+        logger.error(`Can't GET Staff Emails for Organization.`, err);
         res.sendErr(err);
     }
 };

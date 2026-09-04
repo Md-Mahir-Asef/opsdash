@@ -47,9 +47,10 @@ export const TaskForm: React.FC<Props> = ({
 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
-    const [projects, setProjects] = useState<
-        { id: number; title: string }[]
-    >([]);
+    const [projects, setProjects] = useState<{ id: number; title: string }[]>(
+        [],
+    );
+    const [staffEmails, setStaffEmails] = useState<string[]>([]);
 
     useEffect(() => {
         const loadProjects = async () => {
@@ -65,8 +66,7 @@ export const TaskForm: React.FC<Props> = ({
                 if (
                     initialData.project?.id &&
                     !merged.some(
-                        (p: { id: number }) =>
-                            p.id === initialData.project!.id,
+                        (p: { id: number }) => p.id === initialData.project!.id,
                     )
                 ) {
                     merged.push({
@@ -75,19 +75,42 @@ export const TaskForm: React.FC<Props> = ({
                     });
                 }
                 setProjects(
-                    merged.map(
-                        (p: { id: number; title: string }) => ({
-                            id: p.id,
-                            title: p.title,
-                        }),
-                    ),
+                    merged.map((p: { id: number; title: string }) => ({
+                        id: p.id,
+                        title: p.title,
+                    })),
                 );
             } catch (error) {
                 console.error("Error loading projects:", error);
             }
         };
 
+        const loadStaffEmails = async () => {
+            try {
+                const response = await axios.get(
+                    `${config.VITE_SERVER_DEVELOPMENT_BASE_URL}/organization/staff-emails`,
+                    { withCredentials: true },
+                );
+                console.log(
+                    "Staff emails loaded:",
+                    response.data?.data.staffEmails,
+                );
+                const emails = response.data?.data.staffEmails || [];
+                const merged = [...emails];
+                if (
+                    initialData.assigned_staff_email &&
+                    !merged.includes(initialData.assigned_staff_email)
+                ) {
+                    merged.push(initialData.assigned_staff_email);
+                }
+                setStaffEmails(merged);
+            } catch (error) {
+                console.error("Error loading staff emails:", error);
+            }
+        };
+
         loadProjects();
+        loadStaffEmails();
     }, []);
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -163,9 +186,7 @@ export const TaskForm: React.FC<Props> = ({
                     value={selectedProjectId}
                     onChange={(e) =>
                         setSelectedProjectId(
-                            e.target.value === ""
-                                ? ""
-                                : Number(e.target.value),
+                            e.target.value === "" ? "" : Number(e.target.value),
                         )
                     }
                     className="w-full px-3 py-2 bg-dark-100 border border-dark-300 rounded-lg focus:outline-none"
@@ -237,14 +258,26 @@ export const TaskForm: React.FC<Props> = ({
 
             <div>
                 <label className="block text-sm text-dark-600 mb-1">
-                    Assigned Staff Email
+                    Assigned Staff
                 </label>
-                <input
-                    type="email"
+                {staffEmails.length === 0 && (
+                    <div className="text-sm text-yellow-600 bg-yellow-50 border border-yellow-100 p-3 rounded mb-2">
+                        No staff found in this organization. Please add staff
+                        members first.
+                    </div>
+                )}
+                <select
                     value={assignedStaffEmail}
                     onChange={(e) => setAssignedStaffEmail(e.target.value)}
                     className="w-full px-3 py-2 bg-dark-100 border border-dark-300 rounded-lg focus:outline-none"
-                />
+                >
+                    <option value="">Select a staff</option>
+                    {staffEmails.map((email) => (
+                        <option key={email} value={email}>
+                            {email}
+                        </option>
+                    ))}
+                </select>
             </div>
 
             <div>
