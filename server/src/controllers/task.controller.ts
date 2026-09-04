@@ -9,13 +9,16 @@ export const createTask = async (req: Request, res: Response) => {
     try {
         logger.info("Hit createTask function in POST /api/v1/task");
         const info = await getAuthContext(req);
-        logger.info(`Body > Data: ${JSON.stringify(req.body.data)}`);
         const taskData = createTaskSchema.parse(req.body.data);
+        logger.info(`Parsed Task Data:`, taskData);
 
         // Verify that the project exists in the organization
         const project = await prisma.project.findUnique({
             where: { id: taskData.project_id },
         });
+
+        logger.info(`Project found: `, project);
+
         if (!project || String(project.org_id) !== String(info.orgId)) {
             logger.warn(
                 `Project ${taskData.project_id} not found in organization ${info.orgId}`,
@@ -28,7 +31,7 @@ export const createTask = async (req: Request, res: Response) => {
         const newTask = await prisma.task.create({
             data: taskData,
         });
-        logger.info(`POST Create Task for Organization ${info.orgId}`);
+        logger.info(`POST Created Task for Organization ${info.orgId}`);
         res.sendApi({
             data: newTask,
             message: "Task created successfully",
@@ -90,6 +93,7 @@ export const getAllTasksByPage = async (req: Request, res: Response) => {
         ]);
 
         logger.info(`GET All Tasks for Organization ${info.orgId}`);
+        logger.info("The Tasks: ", tasks);
         res.sendApi({
             data: {
                 tasks,
@@ -154,6 +158,7 @@ export const getTaskById = async (req: Request, res: Response) => {
     try {
         logger.info("Hit getTaskById function in GET /api/v1/task/:id");
         const info = await getAuthContext(req);
+        logger.info(`Auth Context:`, info);
         const id = parseInt(req.params["id"] as string);
         if (!info?.orgId) return res.sendErr("Missing orgId");
 
@@ -170,7 +175,11 @@ export const getTaskById = async (req: Request, res: Response) => {
             },
         });
 
-        if (!task || !task.project || String(task.project.org_id) !== String(info.orgId)) {
+        if (
+            !task ||
+            !task.project ||
+            String(task.project.org_id) !== String(info.orgId)
+        ) {
             return res.sendErr("Task not found");
         }
 

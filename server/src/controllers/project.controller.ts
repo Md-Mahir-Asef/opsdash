@@ -102,6 +102,44 @@ export const getAllOrgProjectsByPage = async (req: Request, res: Response) => {
     }
 };
 
+export const getAllOrgProjects = async (req: Request, res: Response) => {
+    try {
+        logger.info(
+            "Hit getAllOrgProjects function in GET /api/v1/project/all",
+        );
+        const info = await getAuthContext(req);
+        logger.info(`Auth Context: ${JSON.stringify(info)}`);
+        if (!info?.orgId) {
+            return res.sendErr("Missing orgId");
+        }
+
+        const projects = await prisma.project.findMany({
+            where: {
+                org_id: String(info.orgId),
+            },
+            select: {
+                id: true,
+                title: true,
+            },
+            orderBy: {
+                created_at: "desc",
+            },
+        });
+
+        logger.info(
+            `GET All Projects (dropdown) for Organization ${info.orgId}`,
+        );
+        logger.info("The Projects: ", projects);
+        res.sendApi({
+            data: { projects },
+            message: "Projects retrieved successfully",
+        });
+    } catch (err) {
+        logger.error(`Can't GET All Projects for Organization`, err);
+        res.sendErr(err);
+    }
+};
+
 export const getProjectById = async (req: Request, res: Response) => {
     try {
         const info = await getAuthContext(req);

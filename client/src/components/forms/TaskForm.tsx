@@ -55,9 +55,10 @@ export const TaskForm: React.FC<Props> = ({
         const loadProjects = async () => {
             try {
                 const response = await axios.get(
-                    `${config.VITE_SERVER_DEVELOPMENT_BASE_URL}/project`,
+                    `${config.VITE_SERVER_DEVELOPMENT_BASE_URL}/project/all`,
                     { withCredentials: true },
                 );
+                console.log("Projects loaded:", response.data);
                 const responseData = response.data?.data?.data;
                 const loadedProjects = responseData?.projects || [];
                 const merged = [...loadedProjects];
@@ -153,6 +154,11 @@ export const TaskForm: React.FC<Props> = ({
                 <label className="block text-sm text-dark-600 mb-1">
                     Project
                 </label>
+                {projects.length === 0 && (
+                    <div className="text-sm text-yellow-600 bg-yellow-50 border border-yellow-100 p-3 rounded mb-2">
+                        No projects found. Please create a project first.
+                    </div>
+                )}
                 <select
                     value={selectedProjectId}
                     onChange={(e) =>

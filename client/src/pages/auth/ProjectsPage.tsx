@@ -47,6 +47,7 @@ export default function ProjectsPage() {
     const [loading, setLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
+    const [totalProjects, setTotalProjects] = useState(0);
     const [deletingProjectId, setDeletingProjectId] = useState<number | null>(
         null,
     );
@@ -93,12 +94,14 @@ export default function ProjectsPage() {
                 const returnedLimit = responseData?.limit ?? serverDefaultLimit;
 
                 setProjects(loadedProjects);
+                setTotalProjects(returnedTotal);
                 setTotalPages(
                     Math.max(1, Math.ceil(returnedTotal / returnedLimit)),
                 );
             } catch (error) {
                 console.error("Error loading projects:", error);
                 setProjects([]);
+                setTotalProjects(0);
                 setTotalPages(1);
             } finally {
                 setLoading(false);
@@ -117,6 +120,9 @@ export default function ProjectsPage() {
             <div className="mb-8">
                 <h1 className="text-3xl font-bold text-dark-900 mb-2">
                     Projects
+                    <span className="ml-3 text-lg font-medium text-dark-500">
+                        ({totalProjects})
+                    </span>
                 </h1>
                 <p className="text-dark-600">
                     Main workspace hub for everything project-related

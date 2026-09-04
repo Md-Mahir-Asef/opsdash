@@ -32,7 +32,7 @@ model Project {
 
 model Task {
   id                   Int       @id @unique @default(autoincrement())
-  project_id           Int       @unique
+  project_id           Int
   title                String
   description          String?
   status               Status    @default(Unconfirmed)
@@ -41,7 +41,7 @@ model Task {
   due_date             DateTime?
   created_at           DateTime  @default(now())
   updated_at           DateTime  @updatedAt
-  project              Project   @relation(fields: [id], references: [id])
+  project              Project   @relation(fields: [project_id], references: [id])
 }
 
 enum Status {

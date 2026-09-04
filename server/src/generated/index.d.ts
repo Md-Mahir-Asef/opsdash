@@ -3679,10 +3679,10 @@ export namespace Prisma {
 
   export type TaskWhereUniqueInput = Prisma.AtLeast<{
     id?: number
-    project_id?: number
     AND?: TaskWhereInput | TaskWhereInput[]
     OR?: TaskWhereInput[]
     NOT?: TaskWhereInput | TaskWhereInput[]
+    project_id?: IntFilter<"Task"> | number
     title?: StringFilter<"Task"> | string
     description?: StringNullableFilter<"Task"> | string | null
     status?: EnumStatusFilter<"Task"> | $Enums.Status
@@ -3692,7 +3692,7 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"Task"> | Date | string
     updated_at?: DateTimeFilter<"Task"> | Date | string
     project?: XOR<ProjectScalarRelationFilter, ProjectWhereInput>
-  }, "id" | "id" | "project_id">
+  }, "id" | "id">
 
   export type TaskOrderByWithAggregationInput = {
     id?: SortOrder
@@ -3835,7 +3835,6 @@ export namespace Prisma {
   }
 
   export type TaskCreateInput = {
-    project_id: number
     title: string
     description?: string | null
     status?: $Enums.Status
@@ -3844,7 +3843,7 @@ export namespace Prisma {
     due_date?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
-    project?: ProjectCreateNestedOneWithoutTasksInput
+    project: ProjectCreateNestedOneWithoutTasksInput
   }
 
   export type TaskUncheckedCreateInput = {
@@ -3861,7 +3860,6 @@ export namespace Prisma {
   }
 
   export type TaskUpdateInput = {
-    project_id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
@@ -3900,7 +3898,6 @@ export namespace Prisma {
   }
 
   export type TaskUpdateManyMutationInput = {
-    project_id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
@@ -4509,7 +4506,6 @@ export namespace Prisma {
   }
 
   export type TaskCreateWithoutProjectInput = {
-    project_id: number
     title: string
     description?: string | null
     status?: $Enums.Status
@@ -4521,7 +4517,7 @@ export namespace Prisma {
   }
 
   export type TaskUncheckedCreateWithoutProjectInput = {
-    project_id: number
+    id?: number
     title: string
     description?: string | null
     status?: $Enums.Status
@@ -4649,7 +4645,7 @@ export namespace Prisma {
   }
 
   export type TaskCreateManyProjectInput = {
-    project_id: number
+    id?: number
     title: string
     description?: string | null
     status?: $Enums.Status
@@ -4661,7 +4657,6 @@ export namespace Prisma {
   }
 
   export type TaskUpdateWithoutProjectInput = {
-    project_id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
@@ -4673,7 +4668,7 @@ export namespace Prisma {
   }
 
   export type TaskUncheckedUpdateWithoutProjectInput = {
-    project_id?: IntFieldUpdateOperationsInput | number
+    id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
@@ -4685,7 +4680,7 @@ export namespace Prisma {
   }
 
   export type TaskUncheckedUpdateManyWithoutProjectInput = {
-    project_id?: IntFieldUpdateOperationsInput | number
+    id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status

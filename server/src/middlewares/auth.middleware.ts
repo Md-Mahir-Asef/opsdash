@@ -14,7 +14,7 @@ export const isUser = (req: Request, res: Response, next: NextFunction) => {
             logger.info("Access granted as a developer");
             return next();
         }
-        console.log("Auth object:", auth);
+        logger.info("Auth object:", auth);
         if (!auth.userId) {
             logger.info("Blocked unauthorized access from auth.middleware.ts");
             throw new Error(`\n Unauthorized \n Token: ${auth}`);
