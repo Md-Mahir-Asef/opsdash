@@ -1,4 +1,4 @@
-import { User, Bell, Shield, Palette, Globe, Database } from "lucide-react";
+import { Bell, Shield, Palette, Globe, Database } from "lucide-react";
 
 export default function SettingsPage() {
     return (
