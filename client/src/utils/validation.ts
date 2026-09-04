@@ -15,3 +15,21 @@ export const createProjectSchema = z.object({
 });
 
 export type CreateProjectInput = z.infer<typeof createProjectSchema>;
+
+export const createTaskSchema = z.object({
+    project_id: z.coerce.number({ error: "Project ID is required" }),
+    title: z.string().min(1, "Title is required"),
+    description: z.string().optional().default(""),
+    status: z
+        .enum(["Unconfirmed", "Todo", "InProgress", "Done"])
+        .optional()
+        .default("Unconfirmed"),
+    assigned_staff_email: z.string().email("Invalid staff email"),
+    priority: z
+        .enum(["High", "Medium", "Low", "NotSet"])
+        .optional()
+        .default("NotSet"),
+    due_date: z.coerce.date().optional(),
+});
+
+export type CreateTaskInput = z.infer<typeof createTaskSchema>;

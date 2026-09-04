@@ -152,6 +152,7 @@ export const getAllTasksByProject = async (req: Request, res: Response) => {
 
 export const getTaskById = async (req: Request, res: Response) => {
     try {
+        logger.info("Hit getTaskById function in GET /api/v1/task/:id");
         const info = await getAuthContext(req);
         const id = parseInt(req.params["id"] as string);
         if (!info?.orgId) return res.sendErr("Missing orgId");
@@ -169,7 +170,7 @@ export const getTaskById = async (req: Request, res: Response) => {
             },
         });
 
-        if (!task || String(task.project.org_id) !== String(info.orgId)) {
+        if (!task || !task.project || String(task.project.org_id) !== String(info.orgId)) {
             return res.sendErr("Task not found");
         }
 
@@ -202,6 +203,7 @@ export const updateTaskById = async (req: Request, res: Response) => {
         });
         if (
             !existing ||
+            !existing.project ||
             String(existing.project.org_id) !== String(info.orgId)
         ) {
             return res.sendErr("Task not found");
@@ -256,6 +258,7 @@ export const deleteTaskById = async (req: Request, res: Response) => {
         });
         if (
             !existing ||
+            !existing.project ||
             String(existing.project.org_id) !== String(info.orgId)
         ) {
             return res.sendErr("Task not found");

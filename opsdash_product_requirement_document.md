@@ -106,7 +106,7 @@ A task must be from a project. A task can't live alone and Projects should have 
 - [ ] Allow the Admin and Client to filter for a project.
 - [ ] Allow the Admin and Client to sort for a project.
 
-### 3.4 - [ ] Task Management
+### 3.4 - [x] Task Management
 
 #### Description
 
@@ -122,9 +122,9 @@ A task must be from a project. A task can't live alone and Projects should have 
 - [x] Create a Database Table for Tasks. (It is required to build the Projects Table.)
 - [x] Connect the DB to Prisma ORM.
 - [x] Connect the Database with Docker and run that successfully.
-- [ ] Allow the Admin and the Client to create tasks.
+- [x] Allow the Admin and the Client to create tasks.
 - [ ] Allow the Client to view only his tasks in the dashboard of the organization.
-- [ ] Allow the Admin to view all tasks in the dashboard of the organization.
+- [x] Allow the Admin to view all tasks in the dashboard of the organization.
 - [ ] Allow the Admin to assign a task to a client.
 - [ ] Allow the Admin to unassign a task from a client.
 - [ ] Allow the Client to update his tasks.

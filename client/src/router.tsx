@@ -13,6 +13,9 @@ import CreateProjectPage from "./pages/auth/CreateProjectPage";
 import ProjectDetailPage from "./pages/auth/ProjectDetailPage";
 import EditProjectPage from "./pages/auth/EditProjectPage";
 import TasksPage from "./pages/auth/TasksPage.tsx";
+import CreateTaskPage from "./pages/auth/CreateTaskPage";
+import TaskDetailPage from "./pages/auth/TaskDetailPage";
+import EditTaskPage from "./pages/auth/EditTaskPage";
 import SettingsPage from "./pages/auth/SettingsPage.tsx";
 import ReportsPage from "./pages/auth/ReportsPage.tsx";
 import { ProtectedRoute } from "./components/auth/ProtectedRoute.tsx";
@@ -80,7 +83,12 @@ export const router = createBrowserRouter([
             },
             {
                 path: "tasks",
-                element: <TasksPage />,
+                children: [
+                    { index: true, element: <TasksPage /> },
+                    { path: "new", element: <CreateTaskPage /> },
+                    { path: ":id", element: <TaskDetailPage /> },
+                    { path: ":id/edit", element: <EditTaskPage /> },
+                ],
             },
             {
                 path: "members",
