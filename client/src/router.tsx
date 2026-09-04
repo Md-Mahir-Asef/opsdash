@@ -20,6 +20,7 @@ import SettingsPage from "./pages/auth/SettingsPage.tsx";
 import ReportsPage from "./pages/auth/ReportsPage.tsx";
 import { ProtectedRoute } from "./components/auth/ProtectedRoute.tsx";
 import MembersPage from "./pages/auth/MembersPage.tsx";
+import ActivityLogPage from "./pages/auth/ActivityLogPage.tsx";
 
 // Layout component that wraps children with ClerkProvider
 const ClerkLayout = ({ children }: { children: React.ReactNode }) => (
@@ -96,6 +97,10 @@ export const router = createBrowserRouter([
             {
                 path: "settings",
                 element: <SettingsPage />,
+            },
+            {
+                path: "activity-log",
+                element: <ActivityLogPage />,
             },
             {
                 path: "reports",

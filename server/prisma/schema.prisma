@@ -44,6 +44,20 @@ model Task {
   project              Project   @relation(fields: [project_id], references: [id])
 }
 
+model ActivityLog {
+  id          Int            @id @default(autoincrement())
+  action      ActivityAction
+  entity      ActivityEntity
+  entity_id   Int?
+  org_id      String
+  actor_id    String?
+  metadata    Json?
+  created_at  DateTime       @default(now())
+
+  @@index([created_at])
+  @@map("activity_logs")
+}
+
 enum Status {
   Unconfirmed
   Todo
@@ -57,3 +71,15 @@ enum Priority {
   Low
   NotSet
 }
+
+enum ActivityAction {
+  Created
+  Updated
+  Deleted
+}
+
+enum ActivityEntity {
+  Project
+  Task
+}
+

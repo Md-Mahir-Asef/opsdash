@@ -4,6 +4,7 @@ import { getHealth, ping } from "../controllers/health.controller";
 import projectRoutes from "./project.route";
 import authRoutes from "./auth.route";
 import taskRoutes from "./task.route";
+import activityRoutes from "./activity-log.route";
 
 const routes = Router();
 
@@ -39,5 +40,6 @@ routes.use("/organization", organizationRoutes);
 routes.use("/project", projectRoutes);
 routes.use("/task", taskRoutes);
 routes.use("/auth", authRoutes);
+routes.use("/activity", activityRoutes);
 
 export default routes;

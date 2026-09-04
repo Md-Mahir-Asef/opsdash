@@ -4,6 +4,7 @@ import { createTaskSchema } from "../utils/zod";
 import prisma from "../utils/prisma";
 import z from "zod";
 import { getAuthContext } from "../utils/auth";
+import { logActivity } from "../services/activity-log.service";
 
 export const createTask = async (req: Request, res: Response) => {
     try {
@@ -31,6 +32,22 @@ export const createTask = async (req: Request, res: Response) => {
         const newTask = await prisma.task.create({
             data: taskData,
         });
+
+        logActivity({
+            action: "Created",
+            entity: "Task",
+            entityId: newTask.id,
+            orgId: String(info.orgId),
+            actorId: info.userId ?? undefined,
+            metadata: {
+                title: newTask.title,
+                project_id: newTask.project_id,
+                assigned_staff_email: newTask.assigned_staff_email,
+                priority: newTask.priority,
+                status: newTask.status,
+            },
+        });
+
         logger.info(`POST Created Task for Organization ${info.orgId}`);
         res.sendApi({
             data: newTask,
@@ -57,18 +74,37 @@ export const getAllTasksByPage = async (req: Request, res: Response) => {
         const page = parseInt(req.query["page"] as string) || 1;
         const limit = parseInt(req.query["limit"] as string) || 9;
         const skip = (page - 1) * limit;
+        const projectId = req.query["projectId"]
+            ? parseInt(req.query["projectId"] as string)
+            : undefined;
 
         if (!info?.orgId) {
             return res.sendErr("Missing orgId");
         }
 
+        // If filtering by project, verify the project belongs to the organization
+        if (projectId) {
+            const project = await prisma.project.findUnique({
+                where: { id: projectId },
+            });
+            if (!project || String(project.org_id) !== String(info.orgId)) {
+                logger.warn(
+                    `Project ${projectId} not found in organization ${info.orgId}`,
+                );
+                return res.sendErr("Project not found");
+            }
+        }
+
+        const where = {
+            project: {
+                org_id: String(info.orgId),
+            },
+            ...(projectId ? { project_id: projectId } : {}),
+        };
+
         const [tasks, totalTasks] = await Promise.all([
             prisma.task.findMany({
-                where: {
-                    project: {
-                        org_id: String(info.orgId),
-                    },
-                },
+                where,
                 take: limit,
                 skip,
                 orderBy: {
@@ -84,15 +120,13 @@ export const getAllTasksByPage = async (req: Request, res: Response) => {
                 },
             }),
             prisma.task.count({
-                where: {
-                    project: {
-                        org_id: String(info.orgId),
-                    },
-                },
+                where,
             }),
         ]);
 
-        logger.info(`GET All Tasks for Organization ${info.orgId}`);
+        logger.info(
+            `GET ${projectId ? `Tasks for Project ${projectId} ` : "All Tasks "}for Organization ${info.orgId}`,
+        );
         logger.info("The Tasks: ", tasks);
         res.sendApi({
             data: {
@@ -238,6 +272,29 @@ export const updateTaskById = async (req: Request, res: Response) => {
             data: updateData as any,
         });
 
+        const changedFields: Record<string, { from: unknown; to: unknown }> = {};
+        for (const key of Object.keys(updateData)) {
+            const k = key as keyof typeof updateData;
+            const oldVal = (existing as Record<string, unknown>)[k];
+            const newVal = updateData[k];
+            if (oldVal !== newVal) {
+                changedFields[k] = { from: oldVal, to: newVal };
+            }
+        }
+
+        logActivity({
+            action: "Updated",
+            entity: "Task",
+            entityId: id,
+            orgId: String(info.orgId),
+            actorId: info.userId ?? undefined,
+            metadata: {
+                changes: changedFields,
+                title: existing.title,
+                project_id: existing.project_id,
+            },
+        });
+
         res.sendApi({ data: updated }, "Task updated successfully");
     } catch (err) {
         if (err instanceof z.ZodError) {
@@ -274,6 +331,18 @@ export const deleteTaskById = async (req: Request, res: Response) => {
         }
 
         await prisma.task.delete({ where: { id } });
+
+        logActivity({
+            action: "Deleted",
+            entity: "Task",
+            entityId: id,
+            orgId: String(info.orgId),
+            actorId: info.userId ?? undefined,
+            metadata: {
+                title: existing.title,
+                project_id: existing.project_id,
+            },
+        });
 
         res.sendApi({ data: { id } }, "Task deleted successfully");
     } catch (err) {

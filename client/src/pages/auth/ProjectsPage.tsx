@@ -73,6 +73,7 @@ export default function ProjectsPage() {
             console.error("Error deleting project:", error);
         } finally {
             setDeletingProjectId(null);
+            navigate("/dashboard/projects");
         }
     };
 

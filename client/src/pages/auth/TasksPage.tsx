@@ -10,7 +10,7 @@ import {
     AlertCircle,
 } from "lucide-react";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ChangeEvent } from "react";
 import { Pagination } from "../../components/common/Pagination";
 import { Button } from "../../components/common/Button";
 import { config } from "../../utils/config";
@@ -76,6 +76,12 @@ export default function TasksPage() {
     const [totalPages, setTotalPages] = useState(1);
     const [deletingTaskId, setDeletingTaskId] = useState<number | null>(null);
     const [searchTerm, setSearchTerm] = useState("");
+    const [projects, setProjects] = useState<{ id: number; title: string }[]>(
+        [],
+    );
+    const [selectedProjectId, setSelectedProjectId] = useState<
+        number | ""
+    >("");
     const serverDefaultLimit = 10;
     const navigate = useNavigate();
 
@@ -100,15 +106,39 @@ export default function TasksPage() {
     };
 
     useEffect(() => {
+        const loadProjects = async () => {
+            try {
+                const response = await axios.get(
+                    `${config.VITE_SERVER_DEVELOPMENT_BASE_URL}/project/all`,
+                    { withCredentials: true },
+                );
+                const responseData = response.data?.data?.data;
+                setProjects(responseData?.projects || []);
+            } catch (error) {
+                console.error("Error loading projects:", error);
+                setProjects([]);
+            }
+        };
+
+        loadProjects();
+    }, []);
+
+    useEffect(() => {
         const loadTasks = async () => {
             try {
                 setLoading(true);
+                const query = new URLSearchParams({
+                    page: String(currentPage),
+                });
+                if (selectedProjectId) {
+                    query.set("projectId", String(selectedProjectId));
+                }
                 const response = await axios.get(
-                    `${config.VITE_SERVER_DEVELOPMENT_BASE_URL}/task?page=${currentPage}`,
+                    `${config.VITE_SERVER_DEVELOPMENT_BASE_URL}/task?${query.toString()}`,
                     { withCredentials: true },
                 );
                 console.log(
-                    `/task?page=${currentPage} Got Response: `,
+                    `/task?${query.toString()} Got Response: `,
                     response.data?.data?.data,
                 );
                 const responseData = response.data?.data?.data;
@@ -130,10 +160,18 @@ export default function TasksPage() {
         };
 
         loadTasks();
-    }, [currentPage]);
+    }, [currentPage, selectedProjectId]);
 
     const handlePageChange = (page: number) => {
         setCurrentPage(page);
+    };
+
+    const handleProjectFilterChange = (
+        event: ChangeEvent<HTMLSelectElement>,
+    ) => {
+        const value = event.target.value;
+        setSelectedProjectId(value === "" ? "" : parseInt(value));
+        setCurrentPage(1);
     };
 
     const filteredTasks = tasks.filter((task) => {
@@ -186,10 +224,32 @@ export default function TasksPage() {
                             className="pl-10 pr-4 py-2 bg-dark-100 border border-dark-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600 text-dark-900"
                         />
                     </div>
-                    <button className="flex items-center space-x-2 px-4 py-2 bg-dark-100 border border-dark-300 rounded-lg hover:bg-dark-200">
-                        <Filter className="w-4 h-4" />
-                        <span>Filter</span>
-                    </button>
+                    <div className="relative">
+                        <Filter className="w-4 h-4 text-dark-500 absolute left-3 top-1/2 transform -translate-y-1/2 pointer-events-none" />
+                        <select
+                            value={
+                                selectedProjectId === ""
+                                    ? ""
+                                    : String(selectedProjectId)
+                            }
+                            onChange={handleProjectFilterChange}
+                            className="pl-10 pr-4 py-2 bg-dark-100 border border-dark-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600 text-dark-900 appearance-none cursor-pointer"
+                        >
+                            <option value="">
+                                {projects.length > 0
+                                    ? "All Projects"
+                                    : "No Projects"}
+                            </option>
+                            {projects.map((project) => (
+                                <option
+                                    key={project.id}
+                                    value={project.id}
+                                >
+                                    {project.title}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
                 </div>
                 <button
                     onClick={() => navigate("/dashboard/tasks/new")}
@@ -322,9 +382,11 @@ export default function TasksPage() {
                         ) : (
                             <div className="p-8 text-center text-dark-600">
                                 <AlertCircle className="w-8 h-8 text-dark-400 mx-auto mb-3" />
-                                {searchTerm
-                                    ? `No tasks match "${searchTerm}" for this page.`
-                                    : "No tasks found for this page."}
+                                {selectedProjectId
+                                    ? "No tasks found for the selected project."
+                                    : searchTerm
+                                      ? `No tasks match "${searchTerm}" for this page.`
+                                      : "No tasks found for this page."}
                             </div>
                         )}
                     </div>

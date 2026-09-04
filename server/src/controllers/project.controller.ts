@@ -5,6 +5,7 @@ import prisma from "../utils/prisma";
 import z from "zod";
 import { getAuthContext } from "../utils/auth";
 import { getClientEmailsInAnOrg } from "../utils/orgInfo";
+import { logActivity } from "../services/activity-log.service";
 
 export const createProject = async (req: Request, res: Response) => {
     try {
@@ -29,6 +30,20 @@ export const createProject = async (req: Request, res: Response) => {
         const newProject = await prisma.project.create({
             data: { ...projectData, org_id: String(info.orgId) },
         });
+
+        logActivity({
+            action: "Created",
+            entity: "Project",
+            entityId: newProject.id,
+            orgId: String(info.orgId),
+            actorId: info.userId ?? undefined,
+            metadata: {
+                title: newProject.title,
+                client_email: newProject.client_email,
+                budget: newProject.budget,
+            },
+        });
+
         logger.info(`POST Create Project for Organization ${info.orgId}`);
         res.sendApi({
             data: newProject,
@@ -198,6 +213,25 @@ export const updateProject = async (req: Request, res: Response) => {
             data: updateData as any,
         });
 
+        const changedFields: Record<string, { from: unknown; to: unknown }> = {};
+        for (const key of Object.keys(updateData)) {
+            const k = key as keyof typeof updateData;
+            const oldVal = (existing as Record<string, unknown>)[k];
+            const newVal = updateData[k];
+            if (oldVal !== newVal) {
+                changedFields[k] = { from: oldVal, to: newVal };
+            }
+        }
+
+        logActivity({
+            action: "Updated",
+            entity: "Project",
+            entityId: id,
+            orgId: String(info.orgId),
+            actorId: info.userId ?? undefined,
+            metadata: { changes: changedFields },
+        });
+
         res.sendApi({ data: updated }, "Project updated successfully");
     } catch (err) {
         if (err instanceof z.ZodError) {
@@ -221,6 +255,15 @@ export const deleteProject = async (req: Request, res: Response) => {
         }
 
         await prisma.project.delete({ where: { id } });
+
+        logActivity({
+            action: "Deleted",
+            entity: "Project",
+            entityId: id,
+            orgId: String(info.orgId),
+            actorId: info.userId ?? undefined,
+            metadata: { title: existing.title },
+        });
 
         res.sendApi({ data: { id } }, "Project deleted successfully");
     } catch (err) {

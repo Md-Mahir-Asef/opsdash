@@ -4,20 +4,45 @@ import {
     Users,
     Activity,
     CheckSquare,
+    Plus,
+    Pencil,
+    Trash2,
+    Clock,
 } from "lucide-react";
 import { useState, useEffect } from "react";
 import { CardSkeleton } from "../../components/common/LoadingSkeleton";
+import axios from "axios";
+import { config } from "../../utils/config";
+
+interface DashboardActivity {
+    id: number;
+    action: string;
+    entity: string;
+    metadata: Record<string, unknown> | null;
+    created_at: string;
+}
 
 export default function DashboardPage() {
     const [isLoading, setIsLoading] = useState(true);
+    const [recentActivities, setRecentActivities] = useState<DashboardActivity[]>([]);
 
     useEffect(() => {
-        // Simulate data loading
-        const timer = setTimeout(() => {
-            setIsLoading(false);
-        }, 2000);
+        const loadData = async () => {
+            try {
+                const response = await axios.get(
+                    `${config.VITE_SERVER_DEVELOPMENT_BASE_URL}/activity?limit=5`,
+                    { withCredentials: true },
+                );
+                const responseData = response.data?.data?.data;
+                setRecentActivities(responseData?.activities || []);
+            } catch (error) {
+                console.error("Error loading dashboard data:", error);
+            } finally {
+                setIsLoading(false);
+            }
+        };
 
-        return () => clearTimeout(timer);
+        loadData();
     }, []);
 
     if (isLoading) {
@@ -130,33 +155,48 @@ export default function DashboardPage() {
                         Recent Activity
                     </h2>
                     <div className="space-y-3">
-                        <div className="flex items-center space-x-3">
-                            <Activity className="w-4 h-4 text-primary-600" />
-                            <span className="text-dark-700">
-                                New project "Website Redesign" created
-                            </span>
-                            <span className="text-sm text-dark-500 ml-auto">
-                                2h ago
-                            </span>
-                        </div>
-                        <div className="flex items-center space-x-3">
-                            <Activity className="w-4 h-4 text-primary-600" />
-                            <span className="text-dark-700">
-                                Task "API Integration" completed
-                            </span>
-                            <span className="text-sm text-dark-500 ml-auto">
-                                4h ago
-                            </span>
-                        </div>
-                        <div className="flex items-center space-x-3">
-                            <Activity className="w-4 h-4 text-primary-600" />
-                            <span className="text-dark-700">
-                                New team member added
-                            </span>
-                            <span className="text-sm text-dark-500 ml-auto">
-                                1d ago
-                            </span>
-                        </div>
+                        {recentActivities.length > 0 ? (
+                            recentActivities.map((log) => {
+                                const meta = log.metadata as Record<string, unknown> | null;
+                                const title = (meta?.title as string) || "Untitled";
+                                const ActionIcon =
+                                    log.action === "Created"
+                                        ? Plus
+                                        : log.action === "Updated"
+                                          ? Pencil
+                                          : log.action === "Deleted"
+                                            ? Trash2
+                                            : Activity;
+                                return (
+                                    <div
+                                        key={log.id}
+                                        className="flex items-center space-x-3"
+                                    >
+                                        <ActionIcon className="w-4 h-4 text-primary-600 shrink-0" />
+                                        <span className="text-dark-700 truncate">
+                                            {log.action} {log.entity.toLowerCase()} &quot;{title}&quot;
+                                        </span>
+                                        <span className="text-sm text-dark-500 ml-auto whitespace-nowrap flex items-center space-x-1">
+                                            <Clock className="w-3.5 h-3.5" />
+                                            <span>
+                                                {new Date(
+                                                    log.created_at,
+                                                ).toLocaleDateString("en-US", {
+                                                    month: "short",
+                                                    day: "numeric",
+                                                    hour: "2-digit",
+                                                    minute: "2-digit",
+                                                })}
+                                            </span>
+                                        </span>
+                                    </div>
+                                );
+                            })
+                        ) : (
+                            <div className="text-dark-500 text-sm">
+                                No recent activity
+                            </div>
+                        )}
                     </div>
                 </div>
 

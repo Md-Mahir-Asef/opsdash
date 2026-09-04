@@ -148,9 +148,25 @@ exports.Prisma.TaskScalarFieldEnum = {
   updated_at: 'updated_at'
 };
 
+exports.Prisma.ActivityLogScalarFieldEnum = {
+  id: 'id',
+  action: 'action',
+  entity: 'entity',
+  entity_id: 'entity_id',
+  org_id: 'org_id',
+  actor_id: 'actor_id',
+  metadata: 'metadata',
+  created_at: 'created_at'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
+};
+
+exports.Prisma.NullableJsonNullValueInput = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull
 };
 
 exports.Prisma.QueryMode = {
@@ -161,6 +177,12 @@ exports.Prisma.QueryMode = {
 exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
+};
+
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
 };
 exports.Status = exports.$Enums.Status = {
   Unconfirmed: 'Unconfirmed',
@@ -176,9 +198,21 @@ exports.Priority = exports.$Enums.Priority = {
   NotSet: 'NotSet'
 };
 
-exports.Prisma.ModelName = {
+exports.ActivityAction = exports.$Enums.ActivityAction = {
+  Created: 'Created',
+  Updated: 'Updated',
+  Deleted: 'Deleted'
+};
+
+exports.ActivityEntity = exports.$Enums.ActivityEntity = {
   Project: 'Project',
   Task: 'Task'
+};
+
+exports.Prisma.ModelName = {
+  Project: 'Project',
+  Task: 'Task',
+  ActivityLog: 'ActivityLog'
 };
 
 /**
