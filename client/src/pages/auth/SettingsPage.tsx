@@ -8,17 +8,13 @@ export default function SettingsPage() {
                     Settings
                 </h1>
                 <p className="text-dark-600">
-                    Profile, preferences, notifications, integrations
+                    Manage your preferences, notifications, and integrations
                 </p>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
                 <div className="lg:col-span-1">
                     <nav className="space-y-1">
-                        <button className="w-full flex items-center space-x-3 px-4 py-2 bg-primary-600 text-white rounded-lg">
-                            <User className="w-5 h-5" />
-                            <span>Profile</span>
-                        </button>
                         <button className="w-full flex items-center space-x-3 px-4 py-2 text-dark-600 hover:bg-dark-200 rounded-lg">
                             <Bell className="w-5 h-5" />
                             <span>Notifications</span>

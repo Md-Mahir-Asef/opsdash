@@ -1,7 +1,10 @@
 import { Bell, Settings } from "lucide-react";
 import { OrganizationSwitcher, UserButton } from "@clerk/react-router";
+import { useNavigate } from "react-router-dom";
 
 export default function Header() {
+    const navigate = useNavigate();
+
     return (
         <header className="bg-dark-100 border-b border-dark-300 px-6 py-3">
             <div className="flex items-center justify-between">
@@ -22,7 +25,7 @@ export default function Header() {
                         <Bell className="w-5 h-5 text-dark-600" />
                         <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
                     </button>
-                    <button className="p-2 hover:bg-dark-200 rounded-lg transition-colors">
+                    <button className="p-2 hover:bg-dark-200 rounded-lg transition-colors" onClick={() => navigate("/dashboard/settings")}>
                         <Settings className="w-5 h-5 text-dark-600" />
                     </button>
 
