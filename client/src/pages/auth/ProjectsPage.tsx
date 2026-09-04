@@ -199,11 +199,14 @@ export default function ProjectsPage() {
                             </div>
                             <div className="mt-4 flex items-center justify-between gap-3">
                                 <div className="min-w-0">
-                                    <div className="flex items-center justify-between mb-1">
-                                        <span className="text-sm text-dark-600">
+                                    <div className="flex items-center justify-between gap-3 mb-1">
+                                        <span className="shrink-0 text-xs font-medium uppercase tracking-wide text-dark-400">
                                             Client
                                         </span>
-                                        <span className="text-sm text-dark-600 truncate">
+                                        <span
+                                            className="text-sm font-medium text-dark-800 truncate"
+                                            title={project.client_email}
+                                        >
                                             {project.client_email}
                                         </span>
                                     </div>
