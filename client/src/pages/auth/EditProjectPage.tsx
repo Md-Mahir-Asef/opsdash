@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import ProjectForm from "../../components/forms/ProjectForm";
@@ -51,6 +51,7 @@ export default function EditProjectPage() {
             <div className="bg-dark-100 border border-dark-300 rounded-lg p-6">
                 <ProjectForm
                     mode="edit"
+                    role="org:client"
                     initialData={project}
                     projectId={Number(id)}
                     onSuccess={handleSuccess}
